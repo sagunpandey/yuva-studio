@@ -11,6 +11,9 @@ import { BadgeModule } from 'primeng/badge';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { ThreadIconComponent } from '../../shared/icons/thread-icon/thread-icon.component';
+import { BgaIconComponent } from '../../shared/icons/bga-icon/bga-icon.component';
+import { BggIconComponent } from '../../shared/icons/bgg-icon/bgg-icon.component';
+import { SoundcloudIconComponent } from '../../shared/icons/soundcloud-icon/soundcloud-icon.component';
 import { ConfigService } from '../../core/services/config.service';
 
 interface LinkItem {
@@ -44,7 +47,9 @@ interface LinkCategory {
     BadgeModule,
     FooterComponent,
     HeaderComponent,
-    ThreadIconComponent
+    ThreadIconComponent,
+    BgaIconComponent,
+    BggIconComponent
   ],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
@@ -58,32 +63,38 @@ export class LinkTreeComponent {
       icon: 'pi pi-user',
       links: [
         {
+          name: 'Personal Website',
+          url: this.config.socialLinks.personal.website,
+          icon: 'pi pi-globe',
+          description: 'Portfolio and blog'
+        },
+        {
           name: 'Facebook',
-          url: this.config.socialLinks.facebook,
+          url: this.config.socialLinks.personal.facebook,
           icon: 'pi pi-facebook',
           description: 'Connect with me on Facebook'
         },
         {
           name: 'TikTok',
-          url: this.config.socialLinks.tiktok,
+          url: this.config.socialLinks.personal.tiktok,
           icon: 'pi pi-tiktok',
           description: 'Follow me on TikTok'
         },
         {
           name: 'YouTube',
-          url: this.config.socialLinks.youtube,
+          url: this.config.socialLinks.personal.youtube,
           icon: 'pi pi-youtube',
           description: 'Subscribe to my YouTube channel'
         },
         {
           name: 'Instagram',
-          url: this.config.socialLinks.instagram,
+          url: this.config.socialLinks.personal.instagram,
           icon: 'pi pi-instagram',
           description: 'Follow me on Instagram'
         },
         {
           name: 'Threads',
-          url: this.config.socialLinks.threads,
+          url: this.config.socialLinks.personal.threads,
           icon: 'pi pi-comments',
           iconType: 'svg',
           iconSvg: ThreadIconComponent,
@@ -91,7 +102,7 @@ export class LinkTreeComponent {
         },
         {
           name: 'X',
-          url: this.config.socialLinks.x,
+          url: this.config.socialLinks.personal.x,
           icon: 'pi pi-twitter',
           description: 'Follow me on X'
         }
@@ -103,19 +114,19 @@ export class LinkTreeComponent {
       links: [
         {
           name: 'Instagram',
-          url: 'https://instagram.com/your-username',
+          url: this.config.socialLinks.boardGaming.instagram,
           icon: 'pi pi-instagram',
           description: 'Board game photos and stories'
         },
         {
           name: 'TikTok',
-          url: 'https://tiktok.com/@your-username',
+          url: this.config.socialLinks.boardGaming.tiktok,
           icon: 'pi pi-tiktok',
           description: 'Quick board game tips'
         },
         {
           name: 'YouTube',
-          url: 'https://youtube.com/your-channel',
+          url: this.config.socialLinks.boardGaming.youtube,
           icon: 'pi pi-youtube',
           description: 'Board game reviews and playthroughs'
         },
@@ -129,14 +140,18 @@ export class LinkTreeComponent {
         },
         {
           name: 'BoardGameGeek',
-          url: 'https://boardgamegeek.com/user/yourusername',
-          icon: 'pi pi-th-large',
+          url: this.config.socialLinks.boardGaming.bgg,
+          icon: '',
+          iconType: 'svg',
+          iconSvg: BggIconComponent,
           description: 'My board game collection and reviews'
         },
         {
           name: 'Board Game Arena',
-          url: 'https://boardgamearena.com/player?id=97163770',
-          icon: 'pi pi-play',
+          url: this.config.socialLinks.boardGaming.bga,
+          icon: '',
+          iconType: 'svg',
+          iconSvg: BgaIconComponent,
           description: 'Play board games with me online'
         }
       ]
@@ -181,8 +196,10 @@ export class LinkTreeComponent {
       links: [
         {
           name: 'SoundCloud',
-          url: 'https://soundcloud.com/your-profile',
-          icon: 'pi pi-soundcloud',
+          url: this.config.socialLinks.music.soundcloud,
+          icon: '',
+          iconType: 'svg',
+          iconSvg: SoundcloudIconComponent,
           description: 'Original music and remixes'
         }
       ]
@@ -193,21 +210,15 @@ export class LinkTreeComponent {
       links: [
         {
           name: 'GitHub',
-          url: this.config.socialLinks.github,
+          url: this.config.socialLinks.programming.github,
           icon: 'pi pi-github',
           description: 'Open-source projects'
         },
         {
           name: 'LinkedIn',
-          url: this.config.socialLinks.linkedin,
+          url: this.config.socialLinks.programming.linkedin,
           icon: 'pi pi-linkedin',
           description: 'Professional profile'
-        },
-        {
-          name: 'Personal Website',
-          url: 'https://your-website.com',
-          icon: 'pi pi-globe',
-          description: 'Portfolio and blog'
         }
       ]
     }
@@ -224,9 +235,5 @@ export class LinkTreeComponent {
       return link.iconSvg;
     }
     return null;
-  }
-
-  private getSafe<T>(obj: any, path: string, defaultValue: any = null): T | null {
-    return path.split('.').reduce((acc, part) => acc && acc[part], obj) || defaultValue;
   }
 }

@@ -11,30 +11,39 @@ export class ConfigService {
     email: 'sag.pan@gmail.com',
     bio: 'while (true) { geek_out(); }',
     socialLinks: {
-      // Professional
-      github: 'https://github.com/sagunpandey',
-      linkedin: 'https://linkedin.com/in/sagunpandey',
       // Personal
-      facebook: 'https://facebook.com/yourusername',
-      tiktok: 'https://tiktok.com/@yourusername',
-      youtube: 'https://youtube.com/yourchannel',
-      instagram: 'https://instagram.com/yourusername',
-      x: 'https://x.com/yourusername',
-      threads: 'https://threads.net/@yourusername',
-      // Board Gaming
-      boardGaming: {
-        instagram: 'https://instagram.com/yourboardgaming',
-        threads: 'https://threads.net/@yourboardgaming'
+      personal: {
+        facebook: 'https://www.facebook.com/sagun.pandey',
+        tiktok: 'https://tiktok.com/@sagun.pandey',
+        youtube: 'https://www.youtube.com/@withyuva',
+        instagram: 'https://www.instagram.com/sagun.pandey',
+        x: 'https://x.com/sagunpandey',
+        threads: 'https://threads.net/@sagun.pandey',
+        website: 'https://sagunpandey.com',
       },
-      // Photography
+      programming: {
+        github: 'https://github.com/sagunpandey',
+        linkedin: 'https://www.linkedin.com/in/sagunpandey',
+      },
+      boardGaming: {
+        instagram: 'https://instagram.com/rollpasa',
+        tiktok: 'https://tiktok.com/@rollpasa',
+        youtube: 'https://www.youtube.com/@rollpasa',
+        threads: 'https://threads.net/@rollpasa',
+        bgg: 'https://boardgamegeek.com/user/withyuva',
+        bga: 'https://boardgamearena.com/player?id=97163770'
+      },
+      music: {
+        soundcloud: 'https://soundcloud.com/sagunpandey'
+      },
       photography: {
         street: {
-          instagram: 'https://instagram.com/yourstreetphoto',
-          threads: 'https://threads.net/@yourstreetphoto'
+          instagram: 'https://instagram.com/withyuva',
+          threads: 'https://www.threads.com/@withyuva'
         },
         portrait: {
-          instagram: 'https://instagram.com/yourportraitphoto',
-          threads: 'https://threads.net/@yourportraitphoto'
+          instagram: 'https://instagram.com/timelessbyyuva',
+          threads: 'https://threads.net/@timelessbyyuva'
         }
       }
     },
