@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ConfigService } from '../../core/services/config.service';
+import { Component, inject, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -11,17 +10,23 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { BadgeModule } from 'primeng/badge';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { ThreadIconComponent } from '../../shared/icons/thread-icon/thread-icon.component';
+import { ConfigService } from '../../core/services/config.service';
+
+interface LinkItem {
+  name: string;
+  url: string;
+  icon: string;
+  iconType?: 'default' | 'svg';
+  iconSvg?: Type<any>;
+  description?: string;
+  badge?: string;
+}
 
 interface LinkCategory {
   title: string;
   icon: string;
-  links: {
-    name: string;
-    url: string;
-    icon: string;
-    description?: string;
-    badge?: string;
-  }[];
+  links: LinkItem[];
 }
 
 @Component({
@@ -38,7 +43,8 @@ interface LinkCategory {
     StyleClassModule,
     BadgeModule,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ThreadIconComponent
   ],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
@@ -79,6 +85,8 @@ export class LinkTreeComponent {
           name: 'Threads',
           url: this.config.socialLinks.threads,
           icon: 'pi pi-comments',
+          iconType: 'svg',
+          iconSvg: ThreadIconComponent,
           description: 'Follow me on Threads'
         },
         {
@@ -115,6 +123,8 @@ export class LinkTreeComponent {
           name: 'Threads',
           url: this.config.socialLinks.boardGaming.threads,
           icon: 'pi pi-comments',
+          iconType: 'svg',
+          iconSvg: ThreadIconComponent,
           description: 'Board game discussions on Threads'
         },
         {
@@ -145,6 +155,8 @@ export class LinkTreeComponent {
           name: 'Street on Threads',
           url: this.config.socialLinks.photography.street.threads,
           icon: 'pi pi-comments',
+          iconType: 'svg',
+          iconSvg: ThreadIconComponent,
           description: 'Street photography on Threads'
         },
         {
@@ -157,6 +169,8 @@ export class LinkTreeComponent {
           name: 'Portraits on Threads',
           url: this.config.socialLinks.photography.portrait.threads,
           icon: 'pi pi-comments',
+          iconType: 'svg',
+          iconSvg: ThreadIconComponent,
           description: 'Portrait photography on Threads'
         }
       ]
@@ -200,6 +214,19 @@ export class LinkTreeComponent {
   ];
 
   openLink(url: string): void {
-    window.open(url, '_blank');
+    if (url) {
+      window.open(url, '_blank');
+    }
+  }
+
+  getIconComponent(link: LinkItem): Type<any> | null {
+    if (link.iconType === 'svg' && link.iconSvg) {
+      return link.iconSvg;
+    }
+    return null;
+  }
+
+  private getSafe<T>(obj: any, path: string, defaultValue: any = null): T | null {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj) || defaultValue;
   }
 }

@@ -13,7 +13,11 @@
               tooltipPosition="top"
             >
               <div class="link-content">
-                <i [ngClass]="link.icon" style="font-size: 1.5rem"></i>
+                @if (link.iconType === 'svg' && link.iconSvg) {
+                  <ng-container *ngComponentOutlet="getIconComponent(link)"></ng-container>
+                } @else {
+                  <i [ngClass]="link.icon" style="font-size: 1.5rem"></i>
+                }
                 <span class="link-name">{{ link.name }}</span>
               </div>
             </div>
