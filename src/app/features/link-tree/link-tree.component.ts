@@ -69,18 +69,18 @@ export class LinkTreeComponent implements OnInit {
     try {
       this.initializeCategories();
       const params = await firstValueFrom(this.route.queryParams);
-      const referredCategory = params['referredCategory'];
+      const category = params['category'];
 
-      // If referredCategory exists and matches any category ID (case insensitive)
-      if (referredCategory) {
-        const category = this.categories.find(
-          c => c.id.toLowerCase() === referredCategory.toLowerCase() ||
-               c.title.toLowerCase() === referredCategory.toLowerCase()
+      // If category exists and matches any category ID (case-insensitive)
+      if (category) {
+        const cat = this.categories.find(
+          c => c.id.toLowerCase() === category.toLowerCase() ||
+               c.title.toLowerCase() === category.toLowerCase()
         );
 
-        if (category) {
-          this.selectedCategory = category.id;
-          await this.pinCategory(category.id);
+        if (cat) {
+          this.selectedCategory = cat.id;
+          await this.pinCategory(cat.id);
         }
       }
     } catch (error) {
