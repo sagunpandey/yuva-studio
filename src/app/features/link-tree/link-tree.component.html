@@ -1,5 +1,5 @@
 <div class="link-tree-container">
-  <app-header [author]="config.author"></app-header>
+  <app-header [author]="config.author" [bio]="config.bio"></app-header>
   <div class="categories">
     @for (category of categories; track category.title) {
       <p-card [header]="category.title" [style]="{ 'margin-bottom': '1.5rem' }">

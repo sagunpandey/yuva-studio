@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { SHA256 } from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
   private appConfig = {
-    appName: 'Yuva Studio',
+    appName: 'Sagun Pandey | Professional Nerd',
     author: 'Sagun Pandey',
-    bio: 'Board Gamer • Photographer • Musician • Developer',
+    email: 'sag.pan@gmail.com',
+    bio: 'while (true) { geek_out(); }',
     socialLinks: {
       // Professional
       github: 'https://github.com/sagunpandey',
@@ -47,8 +49,27 @@ export class ConfigService {
     return this.appConfig.appName;
   }
 
+  get bio(): string {
+    return this.appConfig.bio;
+  }
+
   get author(): string {
     return this.appConfig.author;
+  }
+
+  get email(): string {
+    return this.appConfig.email;
+  }
+
+  get gravatarUrl(): string {
+    // 1. Trim and lowercase the email
+    const email = this.email.trim().toLowerCase();
+
+    // 2. Generate the SHA256 hash
+    const hash = SHA256(email).toString();
+
+    // 3. Return the full URL
+    return `https://www.gravatar.com/avatar/${hash}?s=200&d=identicon`;
   }
 
   get socialLinks() {
