@@ -10,7 +10,7 @@
         (click)="$event.stopPropagation()"
       >
         <div class="link-grid">
-          @for (link of category.links; track link.name) {
+          @for (link of getVisibleLinks(category.links); track link.name) {
             <p-card 
               [styleClass]="'link-card'"
               (click)="openLink(link.url)"

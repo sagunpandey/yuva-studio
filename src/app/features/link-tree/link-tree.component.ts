@@ -27,6 +27,7 @@ interface LinkItem {
   microText?: string;
   badge?: string;
   category?: string;
+  hide?: boolean;
 }
 
 interface LinkCategory {
@@ -92,29 +93,30 @@ export class LinkTreeComponent implements OnInit {
         icon: 'pi pi-code',
         links: [
           this.createLinkItem('Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
-          this.createLinkItem('LinkedIn (sagunpandey)', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'Professional profile'),
-          this.createLinkItem('GitHub (@sagunpandey)', this.config.socialLinks?.programming?.github, 'pi pi-github', 'My open source contributions', 'Check out my code and projects')
+          this.createLinkItem('LinkedIn', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'sagunpandey'),
+          this.createLinkItem('GitHub', this.config.socialLinks?.programming?.github, 'pi pi-github', '@sagunpandey')
         ]
       },
       {
         title: 'Board Gaming',
         icon: 'pi pi-table',
         links: [
-          this.createLinkItem('Instagram (@rollpasa)', this.config.socialLinks?.boardGaming?.instagram, 'pi pi-instagram', 'Board game photos and sessions', 'Tabletop adventures and collection'),
-          this.createLinkItem('TikTok (@rollpasa)', this.config.socialLinks?.boardGaming?.tiktok, 'pi pi-tiktok', 'Board game content', 'Short videos of gameplay and reviews'),
-          this.createLinkItem('YouTube (@rollpasa)', this.config.socialLinks?.boardGaming?.youtube, 'pi pi-youtube', 'Board game channel', 'Gameplay, reviews, and more'),
+          this.createLinkItem('Instagram', this.config.socialLinks?.boardGaming?.instagram, 'pi pi-instagram', '@rollpasa', 'Tabletop adventures and collection'),
+          this.createLinkItem('TikTok', this.config.socialLinks?.boardGaming?.tiktok, 'pi pi-tiktok', '@rollpasa', 'Short videos of gameplay and reviews'),
+          this.createLinkItem('YouTube', this.config.socialLinks?.boardGaming?.youtube, 'pi pi-youtube', '@rollpasa', 'Gameplay, reviews, and more'),
           {
-            ...this.createLinkItem('Threads (@rollpasa)', this.config.socialLinks?.boardGaming?.threads, '', 'Board game discussions', 'Thoughts on games and the hobby'),
+            ...this.createLinkItem('Threads', this.config.socialLinks?.boardGaming?.threads, '', '@rollpasa', 'Thoughts on games and the hobby'),
             iconType: 'svg',
-            iconSvg: ThreadIconComponent
+            iconSvg: ThreadIconComponent,
+            hide: true,
           },
           {
-            ...this.createLinkItem('BoardGameGeek (withyuva)', this.config.socialLinks?.boardGaming?.bgg, '', 'My board game collection', 'Ratings, reviews, and plays'),
+            ...this.createLinkItem('BoardGameGeek', this.config.socialLinks?.boardGaming?.bgg, '', 'withyuva', 'Ratings, reviews, and plays'),
             iconType: 'svg',
             iconSvg: BggIconComponent
           },
           {
-            ...this.createLinkItem('Board Game Arena (withyuva)', this.config.socialLinks?.boardGaming?.bga, '', 'Play board games online', 'Challenge me to a game!'),
+            ...this.createLinkItem('Board Game Arena', this.config.socialLinks?.boardGaming?.bga, '', 'withyuva', 'Challenge me to a game!'),
             iconType: 'svg',
             iconSvg: BgaIconComponent
           }
@@ -124,17 +126,19 @@ export class LinkTreeComponent implements OnInit {
         title: 'Photography',
         icon: 'pi pi-camera',
         links: [
-          this.createLinkItem('Street (@withyuva)', this.config.socialLinks?.photography?.street?.instagram, 'pi pi-instagram', 'Street photography', 'Capturing moments in the urban landscape'),
+          this.createLinkItem('Street | Black & White', this.config.socialLinks?.photography?.street?.instagram, 'pi pi-instagram', '@withyuva', 'Capturing moments in the urban landscape'),
           {
-            ...this.createLinkItem('Street on Threads', this.config.socialLinks?.photography?.street?.threads, '', 'Street photography discussions', 'Thoughts on street photography'),
+            ...this.createLinkItem('Street on Threads', this.config.socialLinks?.photography?.street?.threads, '', '@withyuva', 'Thoughts on street photography'),
             iconType: 'svg',
-            iconSvg: ThreadIconComponent
+            iconSvg: ThreadIconComponent,
+            hide: true,
           },
-          this.createLinkItem('Portrait (@timelessbyyuva)', this.config.socialLinks?.photography?.portrait?.instagram, 'pi pi-instagram', 'Portrait photography', 'Timeless portraits and moments'),
+          this.createLinkItem('Portraits & Moments', this.config.socialLinks?.photography?.portrait?.instagram, 'pi pi-instagram', '@timelessbyyuva', 'Timeless portraits and moments'),
           {
-            ...this.createLinkItem('Portrait on Threads', this.config.socialLinks?.photography?.portrait?.threads, '', 'Portrait photography', 'Behind the scenes and more'),
+            ...this.createLinkItem('Portraits on Threads', this.config.socialLinks?.photography?.portrait?.threads, '', 'Portrait photography', 'Behind the scenes and more'),
             iconType: 'svg',
-            iconSvg: ThreadIconComponent
+            iconSvg: ThreadIconComponent,
+            hide: true,
           }
         ]
       },
@@ -143,7 +147,7 @@ export class LinkTreeComponent implements OnInit {
         icon: 'pi pi-music',
         links: [
           {
-            ...this.createLinkItem('SoundCloud (sagunpandey)', this.config.socialLinks?.music?.soundcloud, '', 'Original compositions', 'Listen to my latest tracks and mixes'),
+            ...this.createLinkItem('SoundCloud', this.config.socialLinks?.music?.soundcloud, '', 'sagunpandey', 'Listen to my latest tracks and mixes'),
             iconType: 'svg',
             iconSvg: SoundcloudIconComponent
           }
@@ -153,15 +157,16 @@ export class LinkTreeComponent implements OnInit {
         title: 'Personal',
         icon: 'pi pi-user',
         links: [
-          this.createLinkItem('Facebook (@sagun.pandey)', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', 'Stay connected', 'Personal updates and life moments'),
-          this.createLinkItem('TikTok (@sagun.pandey)', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', 'Follow me on TikTok'),
-          this.createLinkItem('YouTube (@withyuva)', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', 'Subscribe to my YouTube channel'),
+          this.createLinkItem('Instagram', this.config.socialLinks?.personal?.instagram, 'pi pi-instagram', '@sagun.pandey'),
+          this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey'),
+          this.createLinkItem('TikTok', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', '@sagun.pandey'),
+          this.createLinkItem('YouTube', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', '@withyuva'),
           {
-            ...this.createLinkItem('Threads (@sagun.pandey)', this.config.socialLinks?.personal?.threads, '', 'Text-based conversations', 'Longer form thoughts and discussions'),
+            ...this.createLinkItem('Threads', this.config.socialLinks?.personal?.threads, '', '@sagun.pandey'),
             iconType: 'svg',
             iconSvg: ThreadIconComponent
           },
-          this.createLinkItem('X (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
+          this.createLinkItem('X', this.config.socialLinks?.personal?.x, 'pi pi-twitter', '@sagunpandey')
         ]
       },
     ];
@@ -228,5 +233,13 @@ export class LinkTreeComponent implements OnInit {
       console.error('Error getting icon component:', error);
       return null;
     }
+  }
+
+  /**
+   * Returns a filtered array of links where hide is not true
+   * @param links The array of links to filter
+   */
+  getVisibleLinks(links: LinkItem[]): LinkItem[] {
+    return links ? links.filter(link => link.hide !== true) : [];
   }
 }
