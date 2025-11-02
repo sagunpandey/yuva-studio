@@ -3,14 +3,14 @@
   <div class="categories">
     @for (category of categories; track category.title) {
       <p-card 
-        [id]="'category-' + category.title.toLowerCase().split(' ').join('-')"
+        [id]="'category-' + category.id"
         [header]="category.title" 
         [style]="{ 'margin-bottom': '2rem', 'position': 'relative' }"
-        [styleClass]="'category-card' + (selectedCategory?.toLowerCase() === category.title.toLowerCase() ? ' selected-category' : '')"
+        [styleClass]="'category-card' + (selectedCategory?.toLowerCase() === category.id.toLowerCase() ? ' selected-category' : '')"
         (click)="$event.stopPropagation()"
       >
         <div class="link-grid">
-          @for (link of category.links; track link.name) {
+          @for (link of getVisibleLinks(category.links); track link.name) {
             <p-card 
               [styleClass]="'link-card'"
               (click)="openLink(link.url)"

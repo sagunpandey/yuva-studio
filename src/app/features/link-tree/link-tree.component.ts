@@ -1,17 +1,17 @@
-import { Component, inject, Type, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { DividerModule } from 'primeng/divider';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
-import { BadgeModule } from 'primeng/badge';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { ConfigService } from '../../core/services/config.service';
+import {ChangeDetectorRef, Component, inject, OnInit, Type} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {firstValueFrom} from 'rxjs';
+import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
+import {DividerModule} from 'primeng/divider';
+import {TooltipModule} from 'primeng/tooltip';
+import {RippleModule} from 'primeng/ripple';
+import {StyleClassModule} from 'primeng/styleclass';
+import {BadgeModule} from 'primeng/badge';
+import {HeaderComponent} from '../../shared/components/header/header.component';
+import {FooterComponent} from '../../shared/components/footer/footer.component';
+import {ConfigService} from '../../core/services/config.service';
 import {ThreadIconComponent} from '../../shared/icons/thread-icon/thread-icon.component';
 import {BgaIconComponent} from '../../shared/icons/bga-icon/bga-icon.component';
 import {BggIconComponent} from '../../shared/icons/bgg-icon/bgg-icon.component';
@@ -27,9 +27,11 @@ interface LinkItem {
   microText?: string;
   badge?: string;
   category?: string;
+  hide?: boolean;
 }
 
 interface LinkCategory {
+  id: string;
   title: string;
   icon: string;
   links: LinkItem[];
@@ -49,11 +51,7 @@ interface LinkCategory {
     StyleClassModule,
     BadgeModule,
     FooterComponent,
-    HeaderComponent,
-    ThreadIconComponent,
-    BgaIconComponent,
-    BggIconComponent,
-    SoundcloudIconComponent
+    HeaderComponent
   ],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
@@ -62,6 +60,7 @@ export class LinkTreeComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   protected readonly config = inject(ConfigService);
+  private cdr = inject(ChangeDetectorRef);
 
   selectedCategory: string | null = null;
   categories: LinkCategory[] = [];
@@ -72,15 +71,16 @@ export class LinkTreeComponent implements OnInit {
       const params = await firstValueFrom(this.route.queryParams);
       const referredCategory = params['referredCategory'];
 
-      // If referredCategory exists and matches any category title (case insensitive)
+      // If referredCategory exists and matches any category ID (case insensitive)
       if (referredCategory) {
-        const categoryExists = this.categories.some(
-          c => c.title.toLowerCase() === referredCategory.toLowerCase()
+        const category = this.categories.find(
+          c => c.id.toLowerCase() === referredCategory.toLowerCase() ||
+               c.title.toLowerCase() === referredCategory.toLowerCase()
         );
 
-        if (categoryExists) {
-          this.selectedCategory = referredCategory;
-          await this.scrollToCategory(referredCategory);
+        if (category) {
+          this.selectedCategory = category.id;
+          await this.pinCategory(category.id);
         }
       }
     } catch (error) {
@@ -91,64 +91,91 @@ export class LinkTreeComponent implements OnInit {
   private initializeCategories(): void {
     this.categories = [
       {
-        title: 'Personal',
-        icon: 'pi pi-user',
+        id: 'professional',
+        title: 'Professional',
+        icon: 'pi pi-code',
         links: [
-          this.createLinkItem('Personal Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
-          this.createLinkItem('Facebook (@sagun.pandey)', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', 'Stay connected', 'Personal updates and life moments'),
-          this.createLinkItem('TikTok (@sagun.pandey)', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', 'Follow me on TikTok'),
-          this.createLinkItem('YouTube (@withyuva)', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', 'Subscribe to my YouTube channel'),
-          {
-            ...this.createLinkItem('Threads (@sagun.pandey)', this.config.socialLinks?.personal?.threads, '', 'Text-based conversations', 'Longer form thoughts and discussions'),
-            iconType: 'svg',
-            iconSvg: ThreadIconComponent
-          },
-          this.createLinkItem('X (Twitter) (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
+          this.createLinkItem('Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
+          this.createLinkItem('LinkedIn', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'sagunpandey', 'View my professional profile and experience'),
+          this.createLinkItem('GitHub', this.config.socialLinks?.programming?.github, 'pi pi-github', '@sagunpandey', 'Explore my open-source contributions and projects')
         ]
       },
       {
+        id: 'gaming',
         title: 'Board Gaming',
         icon: 'pi pi-table',
         links: [
-          this.createLinkItem('Instagram (@rollpasa)', this.config.socialLinks?.boardGaming?.instagram, 'pi pi-instagram', 'Board game photos and sessions', 'Tabletop adventures and collection'),
-          this.createLinkItem('TikTok (@rollpasa)', this.config.socialLinks?.boardGaming?.tiktok, 'pi pi-tiktok', 'Board game content', 'Short videos of gameplay and reviews'),
-          this.createLinkItem('YouTube (@rollpasa)', this.config.socialLinks?.boardGaming?.youtube, 'pi pi-youtube', 'Board game channel', 'Gameplay, reviews, and more'),
+          this.createLinkItem('Instagram', this.config.socialLinks?.boardGaming?.instagram, 'pi pi-instagram', '@rollpasa', 'Tabletop adventures and collection'),
+          this.createLinkItem('TikTok', this.config.socialLinks?.boardGaming?.tiktok, 'pi pi-tiktok', '@rollpasa', 'Short videos of gameplay and reviews'),
+          this.createLinkItem('YouTube', this.config.socialLinks?.boardGaming?.youtube, 'pi pi-youtube', '@rollpasa', 'Gameplay, reviews, and more'),
           {
-            ...this.createLinkItem('Threads (@rollpasa)', this.config.socialLinks?.boardGaming?.threads, '', 'Board game discussions', 'Thoughts on games and the hobby'),
+            ...this.createLinkItem('Threads', this.config.socialLinks?.boardGaming?.threads, '', '@rollpasa', 'Thoughts on games and the hobby'),
             iconType: 'svg',
-            iconSvg: ThreadIconComponent
+            iconSvg: ThreadIconComponent,
+            hide: true,
           },
           {
-            ...this.createLinkItem('BoardGameGeek (withyuva)', this.config.socialLinks?.boardGaming?.bgg, '', 'My board game collection', 'Ratings, reviews, and plays'),
+            ...this.createLinkItem('BoardGameGeek', this.config.socialLinks?.boardGaming?.bgg, '', 'withyuva', 'Ratings, reviews, and plays'),
             iconType: 'svg',
             iconSvg: BggIconComponent
           },
           {
-            ...this.createLinkItem('Board Game Arena (withyuva)', this.config.socialLinks?.boardGaming?.bga, '', 'Play board games online', 'Challenge me to a game!'),
+            ...this.createLinkItem('Board Game Arena', this.config.socialLinks?.boardGaming?.bga, '', 'withyuva', 'Challenge me to a game!'),
             iconType: 'svg',
             iconSvg: BgaIconComponent
           }
         ]
       },
       {
+        id: 'photography',
+        title: 'Photography',
+        icon: 'pi pi-camera',
+        links: [
+          this.createLinkItem('Street | Black & White', this.config.socialLinks?.photography?.street?.instagram, 'pi pi-instagram', '@withyuva', 'Capturing moments in the urban landscape'),
+          {
+            ...this.createLinkItem('Street on Threads', this.config.socialLinks?.photography?.street?.threads, '', '@withyuva', 'Thoughts on street photography'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent,
+            hide: true,
+          },
+          this.createLinkItem('Portraits & Moments', this.config.socialLinks?.photography?.portrait?.instagram, 'pi pi-instagram', '@timelessbyyuva', 'Timeless portraits and moments'),
+          {
+            ...this.createLinkItem('Portraits on Threads', this.config.socialLinks?.photography?.portrait?.threads, '', 'Portrait photography', 'Behind the scenes and more'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent,
+            hide: true,
+          }
+        ]
+      },
+      {
+        id: 'music',
         title: 'Music',
         icon: 'pi pi-music',
         links: [
           {
-            ...this.createLinkItem('SoundCloud (sagunpandey)', this.config.socialLinks?.music?.soundcloud, '', 'Original compositions', 'Listen to my latest tracks and mixes'),
+            ...this.createLinkItem('SoundCloud', this.config.socialLinks?.music?.soundcloud, '', 'sagunpandey', 'Listen to my latest tracks and mixes'),
             iconType: 'svg',
             iconSvg: SoundcloudIconComponent
           }
         ]
       },
       {
-        title: 'Programming',
-        icon: 'pi pi-code',
+        id: 'personal',
+        title: 'Personal',
+        icon: 'pi pi-user',
         links: [
-          this.createLinkItem('GitHub (@sagunpandey)', this.config.socialLinks?.programming?.github, 'pi pi-github', 'My open source contributions', 'Check out my code and projects'),
-          this.createLinkItem('LinkedIn (sagunpandey)', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'Professional profile')
+          this.createLinkItem('Instagram', this.config.socialLinks?.personal?.instagram, 'pi pi-instagram', '@sagun.pandey', 'Glimpses of my daily life and adventures'),
+          this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey', 'Connect with me on social media'),
+          this.createLinkItem('TikTok', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', '@sagun.pandey', 'Quick, fun videos from my world'),
+          this.createLinkItem('YouTube', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', '@withyuva', 'Subscribe for my latest uploads'),
+          {
+            ...this.createLinkItem('Threads', this.config.socialLinks?.personal?.threads, '', '@sagun.pandey', 'Join the conversation'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          },
+          this.createLinkItem('X', this.config.socialLinks?.personal?.x, 'pi pi-twitter', '@sagunpandey', 'Tweets and thoughts')
         ]
-      }
+      },
     ];
   }
 
@@ -170,20 +197,28 @@ export class LinkTreeComponent implements OnInit {
     };
   }
 
-  private async scrollToCategory(category: string): Promise<void> {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        try {
-          const element = document.getElementById(`category-${category.toLowerCase().split(' ').join('-')}`);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        } catch (error) {
-          console.error('Error scrolling to category:', error);
-        }
-        resolve();
-      }, 100);
-    });
+  private async pinCategory(categoryId: string): Promise<void> {
+    // Create a new array reference to trigger change detection
+    const currentCategories = [...this.categories];
+    const categoryIndex = currentCategories.findIndex(
+      c => c.id.toLowerCase() === categoryId.toLowerCase()
+    );
+
+    // Only proceed if the category is found and it's not already the first item
+    if (categoryIndex >= 0) {
+      // Create a new array with the selected category first
+      this.categories = [
+        {...currentCategories[categoryIndex]}, // Create new object reference
+        ...currentCategories.slice(0, categoryIndex),
+        ...currentCategories.slice(categoryIndex + 1)
+      ];
+
+      // Update selectedCategory to use the ID
+      this.selectedCategory = categoryId;
+
+      // Manually trigger change detection
+      this.cdr.detectChanges();
+    }
   }
 
   openLink(url: string): void {
@@ -208,5 +243,13 @@ export class LinkTreeComponent implements OnInit {
       console.error('Error getting icon component:', error);
       return null;
     }
+  }
+
+  /**
+   * Returns a filtered array of links where hide is not true
+   * @param links The array of links to filter
+   */
+  getVisibleLinks(links: LinkItem[]): LinkItem[] {
+    return links ? links.filter(link => link.hide !== true) : [];
   }
 }
