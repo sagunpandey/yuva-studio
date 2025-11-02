@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { ConfigService } from '../../core/services/config.service';
+import { Component, inject, Type, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -9,19 +9,30 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 import { BadgeModule } from 'primeng/badge';
-import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { ConfigService } from '../../core/services/config.service';
+import {ThreadIconComponent} from '../../shared/icons/thread-icon/thread-icon.component';
+import {BgaIconComponent} from '../../shared/icons/bga-icon/bga-icon.component';
+import {BggIconComponent} from '../../shared/icons/bgg-icon/bgg-icon.component';
+import {SoundcloudIconComponent} from '../../shared/icons/soundcloud-icon/soundcloud-icon.component';
+
+interface LinkItem {
+  name: string;
+  url: string;
+  icon: string;
+  iconType?: 'default' | 'svg';
+  iconSvg?: Type<any>;
+  description: string;
+  microText?: string;
+  badge?: string;
+  category?: string;
+}
 
 interface LinkCategory {
   title: string;
   icon: string;
-  links: {
-    name: string;
-    url: string;
-    icon: string;
-    description?: string;
-    badge?: string;
-  }[];
+  links: LinkItem[];
 }
 
 @Component({
@@ -38,168 +49,164 @@ interface LinkCategory {
     StyleClassModule,
     BadgeModule,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ThreadIconComponent,
+    BgaIconComponent,
+    BggIconComponent,
+    SoundcloudIconComponent
   ],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
 })
-export class LinkTreeComponent {
+export class LinkTreeComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   protected readonly config = inject(ConfigService);
 
-  categories: LinkCategory[] = [
-    {
-      title: 'Personal',
-      icon: 'pi pi-user',
-      links: [
-        {
-          name: 'Facebook',
-          url: this.config.socialLinks.facebook,
-          icon: 'pi pi-facebook',
-          description: 'Connect with me on Facebook'
-        },
-        {
-          name: 'TikTok',
-          url: this.config.socialLinks.tiktok,
-          icon: 'pi pi-tiktok',
-          description: 'Follow me on TikTok'
-        },
-        {
-          name: 'YouTube',
-          url: this.config.socialLinks.youtube,
-          icon: 'pi pi-youtube',
-          description: 'Subscribe to my YouTube channel'
-        },
-        {
-          name: 'Instagram',
-          url: this.config.socialLinks.instagram,
-          icon: 'pi pi-instagram',
-          description: 'Follow me on Instagram'
-        },
-        {
-          name: 'Threads',
-          url: this.config.socialLinks.threads,
-          icon: 'pi pi-comments',
-          description: 'Follow me on Threads'
-        },
-        {
-          name: 'X',
-          url: this.config.socialLinks.x,
-          icon: 'pi pi-twitter',
-          description: 'Follow me on X'
+  selectedCategory: string | null = null;
+  categories: LinkCategory[] = [];
+
+  async ngOnInit(): Promise<void> {
+    try {
+      this.initializeCategories();
+      const params = await firstValueFrom(this.route.queryParams);
+      const referredCategory = params['referredCategory'];
+
+      // If referredCategory exists and matches any category title (case insensitive)
+      if (referredCategory) {
+        const categoryExists = this.categories.some(
+          c => c.title.toLowerCase() === referredCategory.toLowerCase()
+        );
+
+        if (categoryExists) {
+          this.selectedCategory = referredCategory;
+          await this.scrollToCategory(referredCategory);
         }
-      ]
-    },
-    {
-      title: 'Board Gaming',
-      icon: 'pi pi-dice-three',
-      links: [
-        {
-          name: 'Instagram',
-          url: 'https://instagram.com/your-username',
-          icon: 'pi pi-instagram',
-          description: 'Board game photos and stories'
-        },
-        {
-          name: 'TikTok',
-          url: 'https://tiktok.com/@your-username',
-          icon: 'pi pi-tiktok',
-          description: 'Quick board game tips'
-        },
-        {
-          name: 'YouTube',
-          url: 'https://youtube.com/your-channel',
-          icon: 'pi pi-youtube',
-          description: 'Board game reviews and playthroughs'
-        },
-        {
-          name: 'Threads',
-          url: this.config.socialLinks.boardGaming.threads,
-          icon: 'pi pi-comments',
-          description: 'Board game discussions on Threads'
-        },
-        {
-          name: 'BoardGameGeek',
-          url: 'https://boardgamegeek.com/user/yourusername',
-          icon: 'pi pi-th-large',
-          description: 'My board game collection and reviews'
-        },
-        {
-          name: 'Board Game Arena',
-          url: 'https://boardgamearena.com/player?id=97163770',
-          icon: 'pi pi-play',
-          description: 'Play board games with me online'
-        }
-      ]
-    },
-    {
-      title: 'Photography',
-      icon: 'pi pi-camera',
-      links: [
-        {
-          name: 'Street Photography',
-          url: this.config.socialLinks.photography.street.instagram,
-          icon: 'pi pi-instagram',
-          description: 'Urban photography portfolio'
-        },
-        {
-          name: 'Street on Threads',
-          url: this.config.socialLinks.photography.street.threads,
-          icon: 'pi pi-comments',
-          description: 'Street photography on Threads'
-        },
-        {
-          name: 'Portrait Photography',
-          url: this.config.socialLinks.photography.portrait.instagram,
-          icon: 'pi pi-instagram',
-          description: 'Portfolio and bookings'
-        },
-        {
-          name: 'Portraits on Threads',
-          url: this.config.socialLinks.photography.portrait.threads,
-          icon: 'pi pi-comments',
-          description: 'Portrait photography on Threads'
-        }
-      ]
-    },
-    {
-      title: 'Music',
-      icon: 'pi pi-music',
-      links: [
-        {
-          name: 'SoundCloud',
-          url: 'https://soundcloud.com/your-profile',
-          icon: 'pi pi-soundcloud',
-          description: 'Original music and remixes'
-        }
-      ]
-    },
-    {
-      title: 'Programming',
-      icon: 'pi pi-code',
-      links: [
-        {
-          name: 'GitHub',
-          url: this.config.socialLinks.github,
-          icon: 'pi pi-github',
-          description: 'Open-source projects'
-        },
-        {
-          name: 'LinkedIn',
-          url: this.config.socialLinks.linkedin,
-          icon: 'pi pi-linkedin',
-          description: 'Professional profile'
-        },
-        {
-          name: 'Personal Website',
-          url: 'https://your-website.com',
-          icon: 'pi pi-globe',
-          description: 'Portfolio and blog'
-        }
-      ]
+      }
+    } catch (error) {
+      console.error('Error initializing link tree:', error);
     }
-  ];
+  }
+
+  private initializeCategories(): void {
+    this.categories = [
+      {
+        title: 'Personal',
+        icon: 'pi pi-user',
+        links: [
+          this.createLinkItem('Personal Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
+          this.createLinkItem('Facebook (@sagun.pandey)', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', 'Stay connected', 'Personal updates and life moments'),
+          this.createLinkItem('TikTok (@sagun.pandey)', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', 'Follow me on TikTok'),
+          this.createLinkItem('YouTube (@withyuva)', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', 'Subscribe to my YouTube channel'),
+          {
+            ...this.createLinkItem('Threads (@sagun.pandey)', this.config.socialLinks?.personal?.threads, '', 'Text-based conversations', 'Longer form thoughts and discussions'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          },
+          this.createLinkItem('X (Twitter) (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
+        ]
+      },
+      {
+        title: 'Board Gaming',
+        icon: 'pi pi-table',
+        links: [
+          this.createLinkItem('Instagram (@rollpasa)', this.config.socialLinks?.boardGaming?.instagram, 'pi pi-instagram', 'Board game photos and sessions', 'Tabletop adventures and collection'),
+          this.createLinkItem('TikTok (@rollpasa)', this.config.socialLinks?.boardGaming?.tiktok, 'pi pi-tiktok', 'Board game content', 'Short videos of gameplay and reviews'),
+          this.createLinkItem('YouTube (@rollpasa)', this.config.socialLinks?.boardGaming?.youtube, 'pi pi-youtube', 'Board game channel', 'Gameplay, reviews, and more'),
+          {
+            ...this.createLinkItem('Threads (@rollpasa)', this.config.socialLinks?.boardGaming?.threads, '', 'Board game discussions', 'Thoughts on games and the hobby'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          },
+          {
+            ...this.createLinkItem('BoardGameGeek (withyuva)', this.config.socialLinks?.boardGaming?.bgg, '', 'My board game collection', 'Ratings, reviews, and plays'),
+            iconType: 'svg',
+            iconSvg: BggIconComponent
+          },
+          {
+            ...this.createLinkItem('Board Game Arena (withyuva)', this.config.socialLinks?.boardGaming?.bga, '', 'Play board games online', 'Challenge me to a game!'),
+            iconType: 'svg',
+            iconSvg: BgaIconComponent
+          }
+        ]
+      },
+      {
+        title: 'Music',
+        icon: 'pi pi-music',
+        links: [
+          {
+            ...this.createLinkItem('SoundCloud (sagunpandey)', this.config.socialLinks?.music?.soundcloud, '', 'Original compositions', 'Listen to my latest tracks and mixes'),
+            iconType: 'svg',
+            iconSvg: SoundcloudIconComponent
+          }
+        ]
+      },
+      {
+        title: 'Programming',
+        icon: 'pi pi-code',
+        links: [
+          this.createLinkItem('GitHub (@sagunpandey)', this.config.socialLinks?.programming?.github, 'pi pi-github', 'My open source contributions', 'Check out my code and projects'),
+          this.createLinkItem('LinkedIn (sagunpandey)', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'Professional profile')
+        ]
+      }
+    ];
+  }
+
+  private createLinkItem(
+    name: string,
+    url: string = '#',
+    icon: string = '',
+    description: string = '',
+    microText?: string,
+    category?: string
+  ): LinkItem {
+    return {
+      name,
+      url: url || '#',
+      icon,
+      description,
+      microText,
+      category: category || this.categories[this.categories.length - 1]?.title
+    };
+  }
+
+  private async scrollToCategory(category: string): Promise<void> {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        try {
+          const element = document.getElementById(`category-${category.toLowerCase().split(' ').join('-')}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        } catch (error) {
+          console.error('Error scrolling to category:', error);
+        }
+        resolve();
+      }, 100);
+    });
+  }
 
   openLink(url: string): void {
-    window.open(url, '_blank');
+    try {
+      if (url && url !== '#') {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    } catch (error) {
+      console.error('Error opening link:', error);
+    }
+  }
+
+  getIconComponent(link: LinkItem | undefined): Type<any> | null {
+    if (!link) return null;
+
+    try {
+      if (link.iconType === 'svg' && link.iconSvg) {
+        return link.iconSvg;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error getting icon component:', error);
+      return null;
+    }
   }
 }

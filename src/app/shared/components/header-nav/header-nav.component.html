@@ -1,0 +1,40 @@
+<p-toolbar>
+  <div class="flex align-items-center">
+    <a routerLink="/home" class="logo">
+      <img [src]="gravatarUrl" alt="Sagun Pandey" class="gravatar" width="32" height="32">
+      <span class="logo-text">Sagun Pandey</span>
+    </a>
+  </div>
+  
+  <!-- Desktop Menu -->
+  <div class="desktop-menu" *ngIf="!isMobile">
+    <a *ngFor="let item of menuItems" 
+       [routerLink]="item.routerLink" 
+       pRipple
+       class="menu-item">
+      <i [class]="item.icon + ' mr-2'"></i>
+      <span class="menu-label">{{ item.label }}</span>
+    </a>
+  </div>
+  
+  <!-- Mobile Menu Toggle -->
+  <button *ngIf="isMobile" 
+          pButton 
+          icon="pi pi-bars" 
+          class="p-button-text p-button-rounded p-button-lg"
+          (click)="toggleMenu()"
+          aria-label="Menu">
+  </button>
+</p-toolbar>
+
+<!-- Mobile Menu Dropdown -->
+<div *ngIf="isMobile && menuVisible" class="mobile-menu">
+  <a *ngFor="let item of menuItems" 
+     [routerLink]="item.routerLink" 
+     (click)="menuVisible = false"
+     pRipple
+     class="mobile-menu-item">
+    <i [class]="item.icon + ' mr-3'"></i>
+    <span class="menu-label">{{ item.label }}</span>
+  </a>
+</div>

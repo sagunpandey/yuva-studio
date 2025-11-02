@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { CommonModule } from '@angular/common';
+import {Component, inject, Input} from '@angular/core';
+import {AvatarModule} from 'primeng/avatar';
+import {CommonModule} from '@angular/common';
+import {ConfigService} from '../../../core/services/config.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,13 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="header">
       <div class="profile">
-        <p-avatar
-          icon="pi pi-user"
-          size="xlarge"
-          shape="circle"
-          styleClass="profile-avatar"
-        ></p-avatar>
+        <img
+          [src]="gravatarUrl"
+          alt="Profile picture"
+          class="profile-avatar"
+          width="80"
+          height="80"
+        />
         <h1>{{ author }}</h1>
         <p class="bio">{{ bio }}</p>
       </div>
@@ -27,7 +29,8 @@ import { CommonModule } from '@angular/common';
 
       .profile {
         .profile-avatar {
-          background: linear-gradient(45deg, #6366f1, #8b5cf6);
+          border-radius: 50%;
+          border: 2px solid #6366f1;
           color: white;
           margin-bottom: 1rem;
         }
@@ -49,6 +52,8 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HeaderComponent {
-  @Input() author: string = '';
-  @Input() bio: string = 'Software Engineer • Photographer • Gamer';
+  @Input() author!: string;
+  @Input() bio?: string;
+  private configService = inject(ConfigService);
+  gravatarUrl = this.configService.gravatarUrl;
 }

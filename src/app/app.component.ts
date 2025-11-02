@@ -12,5 +12,4 @@ import { BackgroundComponent } from './shared/components/background/background.c
   `
 })
 export class AppComponent {
-  title = 'yuva-studio';
 }
