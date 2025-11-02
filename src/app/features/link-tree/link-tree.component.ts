@@ -88,19 +88,12 @@ export class LinkTreeComponent implements OnInit {
   private initializeCategories(): void {
     this.categories = [
       {
-        title: 'Personal',
-        icon: 'pi pi-user',
+        title: 'Professional',
+        icon: 'pi pi-code',
         links: [
-          this.createLinkItem('Personal Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
-          this.createLinkItem('Facebook (@sagun.pandey)', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', 'Stay connected', 'Personal updates and life moments'),
-          this.createLinkItem('TikTok (@sagun.pandey)', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', 'Follow me on TikTok'),
-          this.createLinkItem('YouTube (@withyuva)', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', 'Subscribe to my YouTube channel'),
-          {
-            ...this.createLinkItem('Threads (@sagun.pandey)', this.config.socialLinks?.personal?.threads, '', 'Text-based conversations', 'Longer form thoughts and discussions'),
-            iconType: 'svg',
-            iconSvg: ThreadIconComponent
-          },
-          this.createLinkItem('X (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
+          this.createLinkItem('Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
+          this.createLinkItem('LinkedIn (sagunpandey)', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'Professional profile'),
+          this.createLinkItem('GitHub (@sagunpandey)', this.config.socialLinks?.programming?.github, 'pi pi-github', 'My open source contributions', 'Check out my code and projects')
         ]
       },
       {
@@ -128,6 +121,24 @@ export class LinkTreeComponent implements OnInit {
         ]
       },
       {
+        title: 'Photography',
+        icon: 'pi pi-camera',
+        links: [
+          this.createLinkItem('Street (@withyuva)', this.config.socialLinks?.photography?.street?.instagram, 'pi pi-instagram', 'Street photography', 'Capturing moments in the urban landscape'),
+          {
+            ...this.createLinkItem('Street on Threads', this.config.socialLinks?.photography?.street?.threads, '', 'Street photography discussions', 'Thoughts on street photography'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          },
+          this.createLinkItem('Portrait (@timelessbyyuva)', this.config.socialLinks?.photography?.portrait?.instagram, 'pi pi-instagram', 'Portrait photography', 'Timeless portraits and moments'),
+          {
+            ...this.createLinkItem('Portrait on Threads', this.config.socialLinks?.photography?.portrait?.threads, '', 'Portrait photography', 'Behind the scenes and more'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          }
+        ]
+      },
+      {
         title: 'Music',
         icon: 'pi pi-music',
         links: [
@@ -139,13 +150,20 @@ export class LinkTreeComponent implements OnInit {
         ]
       },
       {
-        title: 'Programming',
-        icon: 'pi pi-code',
+        title: 'Personal',
+        icon: 'pi pi-user',
         links: [
-          this.createLinkItem('GitHub (@sagunpandey)', this.config.socialLinks?.programming?.github, 'pi pi-github', 'My open source contributions', 'Check out my code and projects'),
-          this.createLinkItem('LinkedIn (sagunpandey)', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'Professional profile')
+          this.createLinkItem('Facebook (@sagun.pandey)', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', 'Stay connected', 'Personal updates and life moments'),
+          this.createLinkItem('TikTok (@sagun.pandey)', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', 'Follow me on TikTok'),
+          this.createLinkItem('YouTube (@withyuva)', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', 'Subscribe to my YouTube channel'),
+          {
+            ...this.createLinkItem('Threads (@sagun.pandey)', this.config.socialLinks?.personal?.threads, '', 'Text-based conversations', 'Longer form thoughts and discussions'),
+            iconType: 'svg',
+            iconSvg: ThreadIconComponent
+          },
+          this.createLinkItem('X (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
         ]
-      }
+      },
     ];
   }
 
