@@ -13,8 +13,6 @@ import { ConfigService } from '../../../core/services/config.service';
       <div class="footer-links">
         <a routerLink="/privacy-policy" class="footer-link">Privacy Policy</a>
         <span class="divider">•</span>
-        <a href="#" class="footer-link">Terms of Service</a>
-        <span class="divider">•</span>
         <a href="mailto:sag.pan@gmail.com" class="footer-link">Contact</a>
       </div>
     </footer>
