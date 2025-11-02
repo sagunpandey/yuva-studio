@@ -31,6 +31,7 @@ interface LinkItem {
 }
 
 interface LinkCategory {
+  id: string;
   title: string;
   icon: string;
   links: LinkItem[];
@@ -70,15 +71,16 @@ export class LinkTreeComponent implements OnInit {
       const params = await firstValueFrom(this.route.queryParams);
       const referredCategory = params['referredCategory'];
 
-      // If referredCategory exists and matches any category title (case insensitive)
+      // If referredCategory exists and matches any category ID (case insensitive)
       if (referredCategory) {
-        const categoryExists = this.categories.some(
-          c => c.title.toLowerCase() === referredCategory.toLowerCase()
+        const category = this.categories.find(
+          c => c.id.toLowerCase() === referredCategory.toLowerCase() ||
+               c.title.toLowerCase() === referredCategory.toLowerCase()
         );
 
-        if (categoryExists) {
-          this.selectedCategory = referredCategory;
-          await this.pinCategory(referredCategory);
+        if (category) {
+          this.selectedCategory = category.id;
+          await this.pinCategory(category.id);
         }
       }
     } catch (error) {
@@ -89,15 +91,17 @@ export class LinkTreeComponent implements OnInit {
   private initializeCategories(): void {
     this.categories = [
       {
+        id: 'professional',
         title: 'Professional',
         icon: 'pi pi-code',
         links: [
           this.createLinkItem('Website', this.config.socialLinks?.personal?.website, 'pi pi-globe', 'Explore my work and thoughts', 'Portfolio, blog, and more about my journey'),
-          this.createLinkItem('LinkedIn', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'sagunpandey'),
-          this.createLinkItem('GitHub', this.config.socialLinks?.programming?.github, 'pi pi-github', '@sagunpandey')
+          this.createLinkItem('LinkedIn', this.config.socialLinks?.programming?.linkedin, 'pi pi-linkedin', 'sagunpandey', 'View my professional profile and experience'),
+          this.createLinkItem('GitHub', this.config.socialLinks?.programming?.github, 'pi pi-github', '@sagunpandey', 'Explore my open-source contributions and projects')
         ]
       },
       {
+        id: 'gaming',
         title: 'Board Gaming',
         icon: 'pi pi-table',
         links: [
@@ -123,6 +127,7 @@ export class LinkTreeComponent implements OnInit {
         ]
       },
       {
+        id: 'photography',
         title: 'Photography',
         icon: 'pi pi-camera',
         links: [
@@ -143,6 +148,7 @@ export class LinkTreeComponent implements OnInit {
         ]
       },
       {
+        id: 'music',
         title: 'Music',
         icon: 'pi pi-music',
         links: [
@@ -154,19 +160,20 @@ export class LinkTreeComponent implements OnInit {
         ]
       },
       {
+        id: 'personal',
         title: 'Personal',
         icon: 'pi pi-user',
         links: [
-          this.createLinkItem('Instagram', this.config.socialLinks?.personal?.instagram, 'pi pi-instagram', '@sagun.pandey'),
-          this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey'),
-          this.createLinkItem('TikTok', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', '@sagun.pandey'),
-          this.createLinkItem('YouTube', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', '@withyuva'),
+          this.createLinkItem('Instagram', this.config.socialLinks?.personal?.instagram, 'pi pi-instagram', '@sagun.pandey', 'Glimpses of my daily life and adventures'),
+          this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey', 'Connect with me on social media'),
+          this.createLinkItem('TikTok', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', '@sagun.pandey', 'Quick, fun videos from my world'),
+          this.createLinkItem('YouTube', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', '@withyuva', 'Subscribe for my latest uploads'),
           {
-            ...this.createLinkItem('Threads', this.config.socialLinks?.personal?.threads, '', '@sagun.pandey'),
+            ...this.createLinkItem('Threads', this.config.socialLinks?.personal?.threads, '', '@sagun.pandey', 'Join the conversation'),
             iconType: 'svg',
             iconSvg: ThreadIconComponent
           },
-          this.createLinkItem('X', this.config.socialLinks?.personal?.x, 'pi pi-twitter', '@sagunpandey')
+          this.createLinkItem('X', this.config.socialLinks?.personal?.x, 'pi pi-twitter', '@sagunpandey', 'Tweets and thoughts')
         ]
       },
     ];
@@ -190,21 +197,24 @@ export class LinkTreeComponent implements OnInit {
     };
   }
 
-  private async pinCategory(category: string): Promise<void> {
+  private async pinCategory(categoryId: string): Promise<void> {
     // Create a new array reference to trigger change detection
     const currentCategories = [...this.categories];
     const categoryIndex = currentCategories.findIndex(
-      c => c.title.toLowerCase() === category.toLowerCase()
+      c => c.id.toLowerCase() === categoryId.toLowerCase()
     );
 
-    if (categoryIndex > 0) {
+    // Only proceed if the category is found and it's not already the first item
+    if (categoryIndex >= 0) {
       // Create a new array with the selected category first
-      // Update the categories array
       this.categories = [
         {...currentCategories[categoryIndex]}, // Create new object reference
         ...currentCategories.slice(0, categoryIndex),
         ...currentCategories.slice(categoryIndex + 1)
       ];
+
+      // Update selectedCategory to use the ID
+      this.selectedCategory = categoryId;
 
       // Manually trigger change detection
       this.cdr.detectChanges();
