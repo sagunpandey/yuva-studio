@@ -1,17 +1,17 @@
-import { Component, inject, Type, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { DividerModule } from 'primeng/divider';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
-import { BadgeModule } from 'primeng/badge';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { ConfigService } from '../../core/services/config.service';
+import {ChangeDetectorRef, Component, inject, OnInit, Type} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {firstValueFrom} from 'rxjs';
+import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
+import {DividerModule} from 'primeng/divider';
+import {TooltipModule} from 'primeng/tooltip';
+import {RippleModule} from 'primeng/ripple';
+import {StyleClassModule} from 'primeng/styleclass';
+import {BadgeModule} from 'primeng/badge';
+import {HeaderComponent} from '../../shared/components/header/header.component';
+import {FooterComponent} from '../../shared/components/footer/footer.component';
+import {ConfigService} from '../../core/services/config.service';
 import {ThreadIconComponent} from '../../shared/icons/thread-icon/thread-icon.component';
 import {BgaIconComponent} from '../../shared/icons/bga-icon/bga-icon.component';
 import {BggIconComponent} from '../../shared/icons/bgg-icon/bgg-icon.component';
@@ -49,11 +49,7 @@ interface LinkCategory {
     StyleClassModule,
     BadgeModule,
     FooterComponent,
-    HeaderComponent,
-    ThreadIconComponent,
-    BgaIconComponent,
-    BggIconComponent,
-    SoundcloudIconComponent
+    HeaderComponent
   ],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
@@ -62,6 +58,7 @@ export class LinkTreeComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   protected readonly config = inject(ConfigService);
+  private cdr = inject(ChangeDetectorRef);
 
   selectedCategory: string | null = null;
   categories: LinkCategory[] = [];
@@ -80,7 +77,7 @@ export class LinkTreeComponent implements OnInit {
 
         if (categoryExists) {
           this.selectedCategory = referredCategory;
-          await this.scrollToCategory(referredCategory);
+          await this.pinCategory(referredCategory);
         }
       }
     } catch (error) {
@@ -103,7 +100,7 @@ export class LinkTreeComponent implements OnInit {
             iconType: 'svg',
             iconSvg: ThreadIconComponent
           },
-          this.createLinkItem('X (Twitter) (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
+          this.createLinkItem('X (@sagunpandey)', this.config.socialLinks?.personal?.x, 'pi pi-twitter', 'Thoughts in 280 characters or less', 'Tech, life, and random musings')
         ]
       },
       {
@@ -170,20 +167,25 @@ export class LinkTreeComponent implements OnInit {
     };
   }
 
-  private async scrollToCategory(category: string): Promise<void> {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        try {
-          const element = document.getElementById(`category-${category.toLowerCase().split(' ').join('-')}`);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        } catch (error) {
-          console.error('Error scrolling to category:', error);
-        }
-        resolve();
-      }, 100);
-    });
+  private async pinCategory(category: string): Promise<void> {
+    // Create a new array reference to trigger change detection
+    const currentCategories = [...this.categories];
+    const categoryIndex = currentCategories.findIndex(
+      c => c.title.toLowerCase() === category.toLowerCase()
+    );
+
+    if (categoryIndex > 0) {
+      // Create a new array with the selected category first
+      // Update the categories array
+      this.categories = [
+        {...currentCategories[categoryIndex]}, // Create new object reference
+        ...currentCategories.slice(0, categoryIndex),
+        ...currentCategories.slice(categoryIndex + 1)
+      ];
+
+      // Manually trigger change detection
+      this.cdr.detectChanges();
+    }
   }
 
   openLink(url: string): void {
