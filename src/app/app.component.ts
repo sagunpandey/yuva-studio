@@ -6,9 +6,11 @@ import { BackgroundComponent } from './shared/components/background/background.c
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, BackgroundComponent],
-  templateUrl: './app.html',
-  styleUrls: ['./app.scss']
+  template: `
+    <app-background></app-background>
+    <router-outlet></router-outlet>
+  `
 })
-export class App {
+export class AppComponent {
   title = 'yuva-studio';
 }
