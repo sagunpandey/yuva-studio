@@ -3,9 +3,11 @@
   <div class="categories">
     @for (category of categories; track category.title) {
       <p-card 
+        [id]="'category-' + category.title.toLowerCase().split(' ').join('-')"
         [header]="category.title" 
-        [style]="{ 'margin-bottom': '2rem' }"
-        [styleClass]="'category-card'"
+        [style]="{ 'margin-bottom': '2rem', 'position': 'relative' }"
+        [styleClass]="'category-card' + (selectedCategory?.toLowerCase() === category.title.toLowerCase() ? ' selected-category' : '')"
+        (click)="$event.stopPropagation()"
       >
         <div class="link-grid">
           @for (link of category.links; track link.name) {

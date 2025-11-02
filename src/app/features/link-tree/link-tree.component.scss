@@ -16,46 +16,82 @@
 
 .categories {
   margin: 2rem 0;
-  
+
   .category-card {
     background: rgba(20, 20, 20, 0.9);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 
+    box-shadow:
       inset 0 2px 4px rgba(0, 0, 0, 0.3),
       inset 0 -2px 4px rgba(0, 0, 0, 0.2),
       0 4px 20px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     overflow: hidden;
     margin-bottom: 2rem;
-    
-    :host ::ng-deep .p-card-header {
-      background: linear-gradient(
-        to right,
-        rgba(99, 102, 241, 0.1),
-        rgba(139, 92, 246, 0.1)
-      );
+    position: relative;
+
+    :host ::ng-deep {
+      .p-card-header {
+        display: none; // Hide the default header
+      }
+
+      .p-card-body {
+        padding: 0;
+        background: rgba(15, 15, 15, 0.7);
+      }
+    }
+
+    &.selected-category {
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 0 15px rgba(99, 102, 241, 0.2),
+        inset 0 0 15px rgba(99, 102, 241, 0.1);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 16px;
+        padding: 1px;
+        background: transparent;
+        box-shadow: 
+          inset 0 0 20px 2px rgba(99, 102, 241, 0.3),
+          inset 0 0 20px 2px rgba(168, 85, 247, 0.3);
+        pointer-events: none;
+      }
+
+      .category-header {
+        background: linear-gradient(
+          to right,
+          rgba(99, 102, 241, 0.2),
+          rgba(139, 92, 246, 0.2)
+        );
+      }
+    }
+
+    .category-header {
       padding: 1rem 1.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      i {
+        font-size: 1.25rem;
+        color: rgba(99, 102, 241, 0.8);
+      }
+
       h3 {
-        color: #e0e0e0;
         margin: 0;
         font-size: 1.25rem;
         font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        
-        i {
-          color: #8b5cf6;
-        }
+        color: #e0e0e0;
       }
-    }
-    
-    :host ::ng-deep .p-card-body {
-      padding: 1.5rem;
-      background: rgba(15, 15, 15, 0.7);
     }
   }
 }
@@ -65,7 +101,7 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
   margin-top: 0.5rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -80,18 +116,18 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     height: 100%;
-    
+
     .p-card-body {
       padding: 1rem;
       height: 100%;
       display: flex;
       flex-direction: column;
-    
+
     .card-content {
       display: flex;
       flex-direction: column;
       height: 100%;
-      
+
       & > div:first-child {
         display: flex;
         align-items: center;
@@ -100,11 +136,11 @@
         text-overflow: ellipsis;
       }
     }
-    
+
     .p-card-content {
       padding: 0;
     }
-    
+
     .link-icon {
       display: flex;
       align-items: center;
@@ -112,23 +148,23 @@
       width: 24px;
       height: 24px;
       flex-shrink: 0;
-      
+
       &.svg-icon {
         width: 24px;
         height: 24px;
-        
+
         svg {
           width: 20px;
           height: 20px;
         }
       }
-      
+
       i {
         font-size: 1.25rem;
         color: inherit;
       }
     }
-    
+
     .pi-external-link {
       font-size: 0.875rem;
       color: rgba(255, 255, 255, 0.3);
@@ -136,12 +172,12 @@
       margin-left: auto;
       flex-shrink: 0;
     }
-    
+
     .description-container {
       margin-top: 0.5rem;
       padding-left: 0.5rem;
       border-left: 2px solid rgba(255, 255, 255, 0.1);
-      
+
       .text-sm, .text-xs {
         display: block;
         white-space: normal;
@@ -149,28 +185,28 @@
         text-overflow: ellipsis;
       }
     }
-    
+
     .font-medium {
       font-weight: 500;
       color: #fff;
     }
-    
+
     &:hover {
       transform: translateY(-3px);
       background: rgba(40, 40, 40, 0.9);
       border-color: rgba(139, 92, 246, 0.3);
       box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
-      
+
       .pi-external-link {
         color: #8b5cf6;
       }
     }
-    
+
     &:active {
       transform: translateY(-1px);
     }
   }
-  
+
   .pi {
     font-family: "primeicons" !important;
     speak: none;
@@ -182,13 +218,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   .link-main-content {
     display: flex;
     align-items: center;
     width: 100%;
     gap: 0.5rem;
-    
+
     .link-text {
         flex: 1;
         white-space: nowrap;
@@ -196,31 +232,31 @@
         text-overflow: ellipsis;
       }
     }
-    
+
     .link-icon {
       width: 24px;
       height: 24px;
       flex-shrink: 0;
-      
+
       &.svg-icon {
         width: 24px;
         height: 24px;
-        
+
         svg {
           width: 20px;
           height: 20px;
         }
       }
     }
-    
+
     .text-lg {
       font-size: 1rem;
     }
-    
+
     .text-sm {
       font-size: 0.85rem;
     }
-    
+
     .text-xs {
       font-size: 0.75rem;
     }
