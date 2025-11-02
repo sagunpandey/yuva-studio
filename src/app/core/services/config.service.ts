@@ -11,7 +11,6 @@ export class ConfigService {
     email: 'sag.pan@gmail.com',
     bio: 'while (true) { geek_out(); }',
     socialLinks: {
-      // Personal
       personal: {
         facebook: 'https://www.facebook.com/sagun.pandey',
         tiktok: 'https://tiktok.com/@sagun.pandey',

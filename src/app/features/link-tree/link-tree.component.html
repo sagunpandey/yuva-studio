@@ -2,25 +2,44 @@
   <app-header [author]="config.author" [bio]="config.bio"></app-header>
   <div class="categories">
     @for (category of categories; track category.title) {
-      <p-card [header]="category.title" [style]="{ 'margin-bottom': '1.5rem' }">
+      <p-card 
+        [header]="category.title" 
+        [style]="{ 'margin-bottom': '2rem' }"
+        [styleClass]="'category-card'"
+      >
         <div class="link-grid">
           @for (link of category.links; track link.name) {
-            <div
-              pRipple
-              class="link-card p-ripple"
+            <p-card 
+              [styleClass]="'link-card'"
               (click)="openLink(link.url)"
-              [pTooltip]="link.description"
+              [pTooltip]="link.microText || link.description"
               tooltipPosition="top"
+              [style]="{ 'cursor': 'pointer', 'height': '100%' }"
             >
-              <div class="link-content">
-                @if (link.iconType === 'svg' && link.iconSvg) {
-                  <ng-container *ngComponentOutlet="getIconComponent(link)"></ng-container>
-                } @else {
-                  <i [ngClass]="link.icon" style="font-size: 1.5rem"></i>
+              <div class="card-content">
+                <div class="link-main-content">
+                  <div class="link-icon" [ngClass]="{ 'svg-icon': link.iconType === 'svg' }">
+                    @if (link.iconType === 'svg' && link.iconSvg) {
+                      <ng-container *ngComponentOutlet="getIconComponent(link)"></ng-container>
+                    } @else if (link.icon) {
+                      <i [ngClass]="link.icon"></i>
+                    }
+                  </div>
+                  <span class="link-text text-lg font-medium">{{ link.name }}</span>
+                  <i class="pi pi-external-link"></i>
+                </div>
+                @if (link.description || link.microText) {
+                  <div class="description-container">
+                    @if (link.description) {
+                      <div class="text-sm text-500">{{ link.description }}</div>
+                    }
+                    @if (link.microText) {
+                      <div class="text-xs text-400 mt-1">{{ link.microText }}</div>
+                    }
+                  </div>
                 }
-                <span class="link-name">{{ link.name }}</span>
               </div>
-            </div>
+            </p-card>
           }
         </div>
       </p-card>

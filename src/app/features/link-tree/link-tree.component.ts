@@ -22,8 +22,10 @@ interface LinkItem {
   icon: string;
   iconType?: 'default' | 'svg';
   iconSvg?: Type<any>;
-  description?: string;
+  description: string;
+  microText?: string;
   badge?: string;
+  category?: string;
 }
 
 interface LinkCategory {
@@ -66,127 +68,117 @@ export class LinkTreeComponent {
           name: 'Personal Website',
           url: this.config.socialLinks.personal.website,
           icon: 'pi pi-globe',
-          description: 'Portfolio and blog'
+          description: 'Explore my work and thoughts',
+          microText: 'Portfolio, blog, and more about my journey',
+          category: 'Personal'
         },
         {
-          name: 'Facebook',
+          name: 'Facebook (@sagun.pandey)',
           url: this.config.socialLinks.personal.facebook,
           icon: 'pi pi-facebook',
-          description: 'Connect with me on Facebook'
+          description: 'Stay connected',
+          microText: 'Personal updates and life moments',
+          category: 'Personal'
         },
         {
-          name: 'TikTok',
+          name: 'TikTok (@sagun.pandey)',
           url: this.config.socialLinks.personal.tiktok,
           icon: 'pi pi-tiktok',
-          description: 'Follow me on TikTok'
+          description: 'Follow me on TikTok',
+          category: 'Personal'
         },
         {
-          name: 'YouTube',
+          name: 'YouTube (@withyuva)',
           url: this.config.socialLinks.personal.youtube,
           icon: 'pi pi-youtube',
-          description: 'Subscribe to my YouTube channel'
+          description: 'Subscribe to my YouTube channel',
+          category: 'Personal'
         },
         {
-          name: 'Instagram',
+          name: 'Instagram (@sagun.pandey)',
           url: this.config.socialLinks.personal.instagram,
           icon: 'pi pi-instagram',
-          description: 'Follow me on Instagram'
+          description: 'Daily life in pictures',
+          microText: 'Moments from my personal journey',
+          category: 'Personal'
         },
         {
-          name: 'Threads',
+          name: 'Threads (@sagun.pandey)',
           url: this.config.socialLinks.personal.threads,
-          icon: 'pi pi-comments',
+          icon: '',
           iconType: 'svg',
           iconSvg: ThreadIconComponent,
-          description: 'Follow me on Threads'
+          description: 'Text-based conversations',
+          microText: 'Longer form thoughts and discussions',
+          category: 'Personal'
         },
         {
-          name: 'X',
+          name: 'X (Twitter) (@sagunpandey)',
           url: this.config.socialLinks.personal.x,
           icon: 'pi pi-twitter',
-          description: 'Follow me on X'
+          description: 'Thoughts in 280 characters or less',
+          microText: 'Tech, life, and random musings',
+          category: 'Personal'
         }
       ]
     },
     {
       title: 'Board Gaming',
-      icon: 'pi pi-dice-three',
+      icon: 'pi pi-table',
       links: [
         {
-          name: 'Instagram',
+          name: 'Instagram (@rollpasa)',
           url: this.config.socialLinks.boardGaming.instagram,
           icon: 'pi pi-instagram',
-          description: 'Board game photos and stories'
+          description: 'Board game photos and sessions',
+          microText: 'Tabletop adventures and collection',
+          category: 'Board Gaming'
         },
         {
-          name: 'TikTok',
+          name: 'TikTok (@rollpasa)',
           url: this.config.socialLinks.boardGaming.tiktok,
           icon: 'pi pi-tiktok',
-          description: 'Quick board game tips'
+          description: 'Board game content',
+          microText: 'Short videos of gameplay and reviews',
+          category: 'Board Gaming'
         },
         {
-          name: 'YouTube',
+          name: 'YouTube (@rollpasa)',
           url: this.config.socialLinks.boardGaming.youtube,
           icon: 'pi pi-youtube',
-          description: 'Board game reviews and playthroughs'
+          description: 'Board game channel',
+          microText: 'Gameplay, reviews, and more',
+          category: 'Board Gaming'
         },
         {
-          name: 'Threads',
+          name: 'Threads (@rollpasa)',
           url: this.config.socialLinks.boardGaming.threads,
-          icon: 'pi pi-comments',
+          icon: '',
           iconType: 'svg',
           iconSvg: ThreadIconComponent,
-          description: 'Board game discussions on Threads'
+          description: 'Board game discussions',
+          microText: 'Thoughts on games and the hobby',
+          category: 'Board Gaming'
         },
         {
-          name: 'BoardGameGeek',
+          name: 'BoardGameGeek (withyuva)',
           url: this.config.socialLinks.boardGaming.bgg,
           icon: '',
           iconType: 'svg',
           iconSvg: BggIconComponent,
-          description: 'My board game collection and reviews'
+          description: 'My board game collection',
+          microText: 'Ratings, reviews, and plays',
+          category: 'Board Gaming'
         },
         {
-          name: 'Board Game Arena',
+          name: 'Board Game Arena (withyuva)',
           url: this.config.socialLinks.boardGaming.bga,
           icon: '',
           iconType: 'svg',
           iconSvg: BgaIconComponent,
-          description: 'Play board games with me online'
-        }
-      ]
-    },
-    {
-      title: 'Photography',
-      icon: 'pi pi-camera',
-      links: [
-        {
-          name: 'Street Photography',
-          url: this.config.socialLinks.photography.street.instagram,
-          icon: 'pi pi-instagram',
-          description: 'Urban photography portfolio'
-        },
-        {
-          name: 'Street on Threads',
-          url: this.config.socialLinks.photography.street.threads,
-          icon: 'pi pi-comments',
-          iconType: 'svg',
-          iconSvg: ThreadIconComponent,
-          description: 'Street photography on Threads'
-        },
-        {
-          name: 'Portrait Photography',
-          url: this.config.socialLinks.photography.portrait.instagram,
-          icon: 'pi pi-instagram',
-          description: 'Portfolio and bookings'
-        },
-        {
-          name: 'Portraits on Threads',
-          url: this.config.socialLinks.photography.portrait.threads,
-          icon: 'pi pi-comments',
-          iconType: 'svg',
-          iconSvg: ThreadIconComponent,
-          description: 'Portrait photography on Threads'
+          description: 'Play board games online',
+          microText: 'Challenge me to a game!',
+          category: 'Board Gaming'
         }
       ]
     },
@@ -195,12 +187,14 @@ export class LinkTreeComponent {
       icon: 'pi pi-music',
       links: [
         {
-          name: 'SoundCloud',
+          name: 'SoundCloud (sagunpandey)',
           url: this.config.socialLinks.music.soundcloud,
+          description: 'Original compositions',
+          microText: 'Listen to my latest tracks and mixes',
+          category: 'Music',
           icon: '',
           iconType: 'svg',
-          iconSvg: SoundcloudIconComponent,
-          description: 'Original music and remixes'
+          iconSvg: SoundcloudIconComponent
         }
       ]
     },
@@ -209,16 +203,19 @@ export class LinkTreeComponent {
       icon: 'pi pi-code',
       links: [
         {
-          name: 'GitHub',
+          name: 'GitHub (@sagunpandey)',
           url: this.config.socialLinks.programming.github,
           icon: 'pi pi-github',
-          description: 'Open-source projects'
+          description: 'My open source contributions',
+          microText: 'Check out my code and projects',
+          category: 'Programming'
         },
         {
-          name: 'LinkedIn',
+          name: 'LinkedIn (sagunpandey)',
           url: this.config.socialLinks.programming.linkedin,
           icon: 'pi pi-linkedin',
-          description: 'Professional profile'
+          description: 'Professional profile',
+          category: 'Programming'
         }
       ]
     }
