@@ -10,15 +10,25 @@
         (click)="$event.stopPropagation()"
       >
         <div class="link-grid">
-          @for (link of getVisibleLinks(category.links); track link.name) {
+          <!-- Regular Links -->
+          @for (link of getRegularLinks(category.links); track link.name) {
             <p-card 
-              [styleClass]="'link-card'"
+              class="link-card"
               (click)="openLink(link.url)"
               [pTooltip]="link.microText || link.description"
               tooltipPosition="top"
               [style]="{ 'cursor': 'pointer', 'height': '100%' }"
             >
               <div class="card-content">
+                <div class="link-header">
+                  @if (link.sponsored) {
+                    <span class="sponsored-badge">Sponsored</span>
+                  }
+                  @if (link.isHotDeal) {
+                    <span class="hot-deal-badge">🔥 Hot Deal</span>
+                  }
+                </div>
+                
                 <div class="link-main-content">
                   <div class="link-icon" [ngClass]="{ 'svg-icon': link.iconType === 'svg' }">
                     @if (link.iconType === 'svg' && link.iconSvg) {
@@ -27,13 +37,26 @@
                       <i [ngClass]="link.icon"></i>
                     }
                   </div>
-                  <span class="link-text text-lg font-medium">{{ link.name }}</span>
+                  <div class="link-text-container">
+                    <span class="link-text text-lg font-medium">{{ link.name }}</span>
+                    @if (link.discount) {
+                      <span class="discount-badge">{{ link.discount }}</span>
+                    }
+                  </div>
                   <i class="pi pi-external-link"></i>
                 </div>
+                
                 @if (link.description || link.microText) {
                   <div class="description-container">
                     @if (link.description) {
                       <div class="text-sm text-500">{{ link.description }}</div>
+                    }
+                    @if (link.couponCode) {
+                      <div class="coupon-code" (click)="$event.stopPropagation()">
+                        <span>Code: </span>
+                        <span class="code" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)">{{ link.couponCode }}</span>
+                        <i class="pi pi-copy copy-icon" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)"></i>
+                      </div>
                     }
                     @if (link.microText) {
                       <div class="text-xs text-400 mt-1">{{ link.microText }}</div>
@@ -42,6 +65,64 @@
                 }
               </div>
             </p-card>
+          }
+          
+          <!-- Sponsored Section -->
+          @if (hasSponsoredLinks(category.links)) {
+            <div class="sponsored-divider">
+              <span class="divider-text">Sponsored Links</span>
+            </div>
+            
+            @for (link of getSponsoredLinks(category.links); track link.name) {
+              <p-card 
+                class="link-card sponsored"
+                (click)="openLink(link.url)"
+                [pTooltip]="link.microText || link.description"
+                tooltipPosition="top"
+                [style]="{ 'cursor': 'pointer', 'height': '100%' }"
+              >
+                <div class="card-content">
+                  <div class="link-header">
+                    <span class="sponsored-badge">Sponsored</span>
+                    @if (link.isHotDeal) {
+                      <span class="hot-deal-badge">🔥 Hot Deal</span>
+                    }
+                  </div>
+                  
+                  <div class="link-main-content">
+                    <div class="link-icon">
+                      @if (link.icon) {
+                        <i [ngClass]="link.icon"></i>
+                      }
+                    </div>
+                    <div class="link-text-container">
+                      <div class="link-text text-lg font-medium">{{ link.name }}</div>
+                      @if (link.microText) {
+                        <div class="text-sm text-400">{{ link.microText }}</div>
+                      }
+                      @if (link.discount) {
+                        <div class="discount-badge">{{ link.discount }}</div>
+                      }
+                    </div>
+                    <i class="pi pi-external-link"></i>
+                  </div>
+                  
+                  @if (link.description || link.couponCode) {
+                    <div class="description-container">
+                      @if (link.description) {
+                        <div class="text-sm text-500">{{ link.description }}</div>
+                      }
+                      @if (link.couponCode) {
+                        <div class="coupon-code" (click)="$event.stopPropagation()">
+                          <span class="code" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)">{{ link.couponCode }}</span>
+                          <i class="pi pi-copy copy-icon" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)"></i>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </p-card>
+            }
           }
         </div>
       </p-card>

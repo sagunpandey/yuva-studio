@@ -28,6 +28,10 @@ interface LinkItem {
   badge?: string;
   category?: string;
   hide?: boolean;
+  sponsored?: boolean;
+  couponCode?: string;
+  discount?: string;
+  isHotDeal?: boolean;
 }
 
 interface LinkCategory {
@@ -75,7 +79,7 @@ export class LinkTreeComponent implements OnInit {
       if (category) {
         const cat = this.categories.find(
           c => c.id.toLowerCase() === category.toLowerCase() ||
-               c.title.toLowerCase() === category.toLowerCase()
+            c.title.toLowerCase() === category.toLowerCase()
         );
 
         if (cat) {
@@ -123,7 +127,14 @@ export class LinkTreeComponent implements OnInit {
             ...this.createLinkItem('Board Game Arena', this.config.socialLinks?.boardGaming?.bga, '', 'withyuva', 'Challenge me to a game!'),
             iconType: 'svg',
             iconSvg: BgaIconComponent
-          }
+          },
+          {
+            ...this.createLinkItem('Box King Gaming', 'https://boxkinggaming.com/', 'pi pi-shopping-cart', 'Use code ROLLPASA for 10% off your order!', 'High-quality shelves, board game tables, organizers, and accessories.'),
+            sponsored: true,
+            couponCode: 'ROLLPASA',
+            discount: '10% off',
+            isHotDeal: false
+          },
         ]
       },
       {
@@ -252,7 +263,28 @@ export class LinkTreeComponent implements OnInit {
    * Returns a filtered array of links where hide is not true
    * @param links The array of links to filter
    */
+  getRegularLinks(links: LinkItem[]): LinkItem[] {
+    return links.filter(link => !link.hide && !link.sponsored);
+  }
+
+  getSponsoredLinks(links: LinkItem[]): LinkItem[] {
+    return links.filter(link => !link.hide && link.sponsored);
+  }
+
+  hasSponsoredLinks(links: LinkItem[]): boolean {
+    return links.some(link => !link.hide && link.sponsored);
+  }
+
   getVisibleLinks(links: LinkItem[]): LinkItem[] {
-    return links ? links.filter(link => link.hide !== true) : [];
+    return links.filter(link => !link.hide);
+  }
+
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text).then(() => {
+      // You could add a toast notification here if you'd like
+      console.log('Copied to clipboard:', text);
+    }).catch(err => {
+      console.error('Failed to copy text:', err);
+    });
   }
 }
