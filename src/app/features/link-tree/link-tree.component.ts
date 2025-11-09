@@ -165,7 +165,10 @@ export class LinkTreeComponent implements OnInit {
         icon: 'pi pi-user',
         links: [
           this.createLinkItem('Instagram', this.config.socialLinks?.personal?.instagram, 'pi pi-instagram', '@sagun.pandey', 'Glimpses of my daily life and adventures'),
-          this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey', 'Connect with me on social media'),
+          {
+            ...this.createLinkItem('Facebook', this.config.socialLinks?.personal?.facebook, 'pi pi-facebook', '@sagun.pandey', 'Connect with me on social media'),
+            hide: true
+          },
           this.createLinkItem('TikTok', this.config.socialLinks?.personal?.tiktok, 'pi pi-tiktok', '@sagun.pandey', 'Quick, fun videos from my world'),
           this.createLinkItem('YouTube', this.config.socialLinks?.personal?.youtube, 'pi pi-youtube', '@withyuva', 'Subscribe for my latest uploads'),
           {
