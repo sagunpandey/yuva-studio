@@ -1,10 +1,11 @@
 <div class="link-tree-container">
+  <p-toast position="top-right" [style]="{'margin-top': '60px'}"></p-toast>
   <app-header [author]="config.author" [bio]="config.bio"></app-header>
   <div class="categories">
     @for (category of categories; track category.title) {
-      <p-card 
+      <p-card
         [id]="'category-' + category.id"
-        [header]="category.title" 
+        [header]="category.title"
         [style]="{ 'margin-bottom': '2rem', 'position': 'relative' }"
         [styleClass]="'category-card' + (selectedCategory?.toLowerCase() === category.id.toLowerCase() ? ' selected-category' : '')"
         (click)="$event.stopPropagation()"
@@ -12,7 +13,7 @@
         <div class="link-grid">
           <!-- Regular Links -->
           @for (link of getRegularLinks(category.links); track link.name) {
-            <p-card 
+            <p-card
               class="link-card"
               (click)="openLink(link.url)"
               [pTooltip]="link.microText || link.description"
@@ -28,7 +29,7 @@
                     <span class="hot-deal-badge">🔥 Hot Deal</span>
                   }
                 </div>
-                
+
                 <div class="link-main-content">
                   <div class="link-icon" [ngClass]="{ 'svg-icon': link.iconType === 'svg' }">
                     @if (link.iconType === 'svg' && link.iconSvg) {
@@ -38,25 +39,20 @@
                     }
                   </div>
                   <div class="link-text-container">
-                    <span class="link-text text-lg font-medium">{{ link.name }}</span>
-                    @if (link.discount) {
-                      <span class="discount-badge">{{ link.discount }}</span>
-                    }
+                    <div class="link-text-wrapper">
+                      @if (link.discount) {
+                        <span class="discount-badge">{{ link.discount }}</span>
+                      }
+                      <span class="link-text text-lg font-medium">{{ link.name }}</span>
+                    </div>
                   </div>
                   <i class="pi pi-external-link"></i>
                 </div>
-                
+
                 @if (link.description || link.microText) {
                   <div class="description-container">
                     @if (link.description) {
                       <div class="text-sm text-500">{{ link.description }}</div>
-                    }
-                    @if (link.couponCode) {
-                      <div class="coupon-code" (click)="$event.stopPropagation()">
-                        <span>Code: </span>
-                        <span class="code" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)">{{ link.couponCode }}</span>
-                        <i class="pi pi-copy copy-icon" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)"></i>
-                      </div>
                     }
                     @if (link.microText) {
                       <div class="text-xs text-400 mt-1">{{ link.microText }}</div>
@@ -66,15 +62,15 @@
               </div>
             </p-card>
           }
-          
+
           <!-- Sponsored Section -->
           @if (hasSponsoredLinks(category.links)) {
             <div class="sponsored-divider">
               <span class="divider-text">Sponsored Links</span>
             </div>
-            
+
             @for (link of getSponsoredLinks(category.links); track link.name) {
-              <p-card 
+              <p-card
                 class="link-card sponsored"
                 (click)="openLink(link.url)"
                 [pTooltip]="link.microText || link.description"
@@ -88,7 +84,7 @@
                       <span class="hot-deal-badge">🔥 Hot Deal</span>
                     }
                   </div>
-                  
+
                   <div class="link-main-content">
                     <div class="link-icon">
                       @if (link.icon) {
@@ -96,26 +92,30 @@
                       }
                     </div>
                     <div class="link-text-container">
-                      <div class="link-text text-lg font-medium">{{ link.name }}</div>
+                      <div class="link-text-wrapper">
+                        <span class="link-text text-lg font-medium">{{ link.name }}</span>
+                      </div>
                       @if (link.microText) {
                         <div class="text-sm text-400">{{ link.microText }}</div>
-                      }
-                      @if (link.discount) {
-                        <div class="discount-badge">{{ link.discount }}</div>
                       }
                     </div>
                     <i class="pi pi-external-link"></i>
                   </div>
-                  
+
                   @if (link.description || link.couponCode) {
                     <div class="description-container">
                       @if (link.description) {
                         <div class="text-sm text-500">{{ link.description }}</div>
                       }
                       @if (link.couponCode) {
-                        <div class="coupon-code" (click)="$event.stopPropagation()">
-                          <span class="code" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)">{{ link.couponCode }}</span>
-                          <i class="pi pi-copy copy-icon" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)"></i>
+                        <div class="coupon-code-container">
+                          <div class="coupon-code" (click)="$event.stopPropagation(); copyToClipboard(link.couponCode)">
+                            @if (link.discount) {
+                              <p-badge [value]="link.discount" severity="success" styleClass="mr-2"></p-badge>
+                            }
+                            <span class="code">{{ link.couponCode }}</span>
+                            <i class="pi pi-copy copy-icon"></i>
+                          </div>
                         </div>
                       }
                     </div>

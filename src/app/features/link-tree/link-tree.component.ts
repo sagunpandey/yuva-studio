@@ -1,4 +1,5 @@
 import {ChangeDetectorRef, Component, inject, OnInit, Type} from '@angular/core';
+import { MessageService } from 'primeng/api';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {firstValueFrom} from 'rxjs';
@@ -9,6 +10,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
 import {StyleClassModule} from 'primeng/styleclass';
 import {BadgeModule} from 'primeng/badge';
+import { ToastModule } from 'primeng/toast';
 import {HeaderComponent} from '../../shared/components/header/header.component';
 import {FooterComponent} from '../../shared/components/footer/footer.component';
 import {ConfigService} from '../../core/services/config.service';
@@ -54,9 +56,11 @@ interface LinkCategory {
     RippleModule,
     StyleClassModule,
     BadgeModule,
+    ToastModule,
     FooterComponent,
     HeaderComponent
   ],
+  providers: [MessageService],
   templateUrl: './link-tree.component.html',
   styleUrls: ['./link-tree.component.scss']
 })
@@ -65,6 +69,7 @@ export class LinkTreeComponent implements OnInit {
   private readonly router = inject(Router);
   protected readonly config = inject(ConfigService);
   private cdr = inject(ChangeDetectorRef);
+  private messageService = inject(MessageService);
 
   selectedCategory: string | null = null;
   categories: LinkCategory[] = [];
@@ -281,9 +286,19 @@ export class LinkTreeComponent implements OnInit {
 
   copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text).then(() => {
-      // You could add a toast notification here if you'd like
-      console.log('Copied to clipboard:', text);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Copied!',
+        detail: `"${text}" code copied`,
+        life: 3000
+      });
     }).catch(err => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to copy code',
+        life: 3000
+      });
       console.error('Failed to copy text:', err);
     });
   }
