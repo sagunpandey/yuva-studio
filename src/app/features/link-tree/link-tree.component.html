@@ -21,15 +21,6 @@
               [style]="{ 'cursor': 'pointer', 'height': '100%' }"
             >
               <div class="card-content">
-                <div class="link-header">
-                  @if (link.sponsored) {
-                    <span class="sponsored-badge">Sponsored</span>
-                  }
-                  @if (link.isHotDeal) {
-                    <span class="hot-deal-badge">🔥 Hot Deal</span>
-                  }
-                </div>
-
                 <div class="link-main-content">
                   <div class="link-icon" [ngClass]="{ 'svg-icon': link.iconType === 'svg' }">
                     @if (link.iconType === 'svg' && link.iconSvg) {
@@ -40,9 +31,6 @@
                   </div>
                   <div class="link-text-container">
                     <div class="link-text-wrapper">
-                      @if (link.discount) {
-                        <span class="discount-badge">{{ link.discount }}</span>
-                      }
                       <span class="link-text text-lg font-medium">{{ link.name }}</span>
                     </div>
                   </div>
@@ -79,7 +67,9 @@
               >
                 <div class="card-content">
                   <div class="link-header">
-                    <span class="sponsored-badge">Sponsored</span>
+                    @if (!link.hideSponsoredBadge) {
+                      <span class="sponsored-badge">Sponsored</span>
+                    }
                     @if (link.isHotDeal) {
                       <span class="hot-deal-badge">🔥 Hot Deal</span>
                     }

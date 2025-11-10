@@ -101,46 +101,46 @@
   gap: 1rem;
   margin-top: 0.5rem;
   position: relative;
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
-.sponsored-divider {
-  grid-column: 1 / -1;
-  position: relative;
-  text-align: center;
-  margin: 0.2rem 0;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
-    z-index: 1;
-  }
-
-  .divider-text {
-    display: none;
-    position: relative;
-    z-index: 2;
-  }
-
   .sponsored-badge {
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 600;
-    padding: 0.15rem 0.5rem;
-    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.5rem;
+    font-weight: 400;
+    margin-right: 0.25rem;
+    display: inline-block;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.1px;
+    line-height: 1;
+    position: relative;
+    top: -1px;
   }
-}
+
+  .sponsored-divider {
+    grid-column: 1 / -1;
+    position: relative;
+    text-align: center;
+    margin: 0.2rem 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+      z-index: 1;
+    }
+
+    .divider-text {
+      display: none;
+      position: relative;
+      z-index: 2;
+    }
+  }
 
 :host ::ng-deep {
   .p-card {
@@ -204,6 +204,11 @@
     .pi-external-link, .copy-icon {
       flex-shrink: 0;
       margin-top: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .card-content:hover .link-main-content > .pi-external-link {
+      color: #8b5cf6 !important;
     }
 
     .copy-icon {

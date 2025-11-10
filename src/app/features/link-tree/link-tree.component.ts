@@ -31,11 +31,11 @@ interface LinkItem {
   category?: string;
   hide?: boolean;
   sponsored?: boolean;
+  hideSponsoredBadge?: boolean;
   couponCode?: string;
   discount?: string;
   isHotDeal?: boolean;
 }
-
 interface LinkCategory {
   id: string;
   title: string;
@@ -138,7 +138,7 @@ export class LinkTreeComponent implements OnInit {
             sponsored: true,
             couponCode: 'ROLLPASA',
             discount: '10% off',
-            isHotDeal: false
+            isHotDeal: false,
           },
         ]
       },
