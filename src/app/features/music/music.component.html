@@ -1,0 +1,79 @@
+<section class="page music">
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Music</h1>
+      <p class="intro">
+        Music is my creative outlet and passion. As a hobby singer, I share my musical journey here -
+        from rough sessions and early attempts to cover songs I love. This is where I experiment, learn,
+        and express myself through music, one recording at a time.
+      </p>
+    </div>
+
+    <!-- Social Links - Floating Outside Hero Card -->
+    <app-social-links [links]="socialLinks"></app-social-links>
+
+    <!-- SoundCloud Playlists Section -->
+    <div class="playlists-section">
+      <h2>SoundCloud Tracks</h2>
+      <p class="section-lead">Discover my music and sound on SoundCloud</p>
+
+      <div class="playlists-grid">
+        <div class="playlist-card" *ngFor="let track of soundcloudTracks">
+          <h3>{{ track.title }}</h3>
+          <p class="playlist-description">{{ track.description }}</p>
+          <div class="playlist-embed">
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+              [src]="'https://w.soundcloud.com/player/?url=' + track.trackUrl + '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true' | sanitizeUrl">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube Music Section -->
+    <div class="youtube-section">
+      <h2>YouTube Music Videos</h2>
+      <p class="section-lead">Music videos and performances I love</p>
+
+      <div class="videos-grid">
+        <div class="video-card" *ngFor="let video of youtubeVideos">
+          <div class="video-embed">
+            <iframe width="100%" height="315" [src]="'https://www.youtube.com/embed/' + video.videoId | sanitizeUrl"
+              title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+          </div>
+          <h3>{{ video.title }}</h3>
+          <p>{{ video.artist }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Media Videos Section -->
+    <div class="social-videos-section">
+      <h2>Music on Social Media</h2>
+      <p class="section-lead">Music videos and clips from Instagram and Facebook</p>
+
+      <div class="social-videos-grid">
+        <div class="social-video-card">
+          <h3>Instagram Reels</h3>
+          <p class="platform-description">Short-form music content and clips</p>
+          <div class="instagram-embed">
+            <iframe src="https://www.instagram.com/p/YOUR_POST_ID/embed" width="100%" height="500" frameborder="0" scrolling="no" allowtransparency="true">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="social-video-card">
+          <h3>Facebook Videos</h3>
+          <p class="platform-description">Music videos and live performances</p>
+          <div class="facebook-embed">
+            <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FYOUR_VIDEO_URL&width=500&show_text=false" width="100%" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

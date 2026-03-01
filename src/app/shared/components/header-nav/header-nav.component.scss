@@ -1,6 +1,7 @@
 :host {
   display: block;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
 }
 
@@ -12,13 +13,13 @@
     padding: 0.5rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    
+
     .p-toolbar-group-left,
     .p-toolbar-group-right {
       gap: 1rem;
     }
   }
-  
+
   .logo {
     display: flex;
     align-items: center;
@@ -27,7 +28,7 @@
     font-size: 1.25rem;
     font-weight: 500;
     gap: 0.75rem;
-    
+
     .gravatar {
       width: 32px;
       height: 32px;
@@ -35,17 +36,17 @@
       object-fit: cover;
       border: 2px solid rgba(255, 255, 255, 0.1);
     }
-    
+
     &:hover {
       color: #a78bfa;
     }
   }
-  
+
   .desktop-menu {
     display: flex;
     gap: 1.5rem;
     margin-left: 2rem;
-    
+
     .menu-item {
       display: flex;
       align-items: center;
@@ -55,28 +56,29 @@
       border-radius: 6px;
       transition: all 0.2s ease;
       gap: 0.5rem;
-      
+      position: relative;
+
       i {
         font-size: 1.1rem;
         flex-shrink: 0;
       }
-      
+
       .menu-label {
         white-space: nowrap;
       }
-      
+
       &:hover {
-        background: rgba(139, 92, 246, 0.1);
+        background: rgba(139, 92, 246, 0.08);
         color: #a78bfa;
       }
-      
+
       &.active {
-        color: #8b5cf6;
-        font-weight: 500;
+        color: #c4b5fd;
+        font-weight: 600;
       }
     }
   }
-  
+
   .mobile-menu {
     position: absolute;
     top: 100%;
@@ -87,7 +89,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     z-index: 1000;
-    
+
     .mobile-menu-item {
       display: flex;
       align-items: center;
@@ -96,27 +98,27 @@
       text-decoration: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       transition: all 0.2s ease;
-      
+
       i {
         font-size: 1.1rem;
         width: 24px;
         color: #8b5cf6;
       }
-      
+
       &:hover {
         background: rgba(139, 92, 246, 0.1);
         color: #a78bfa;
       }
-      
+
       &:last-child {
         border-bottom: none;
       }
     }
   }
-  
+
   .p-button {
     color: #e2e8f0;
-    
+
     &:hover {
       background: rgba(139, 92, 246, 0.1) !important;
       color: #a78bfa !important;
@@ -130,7 +132,7 @@
     .desktop-menu {
       gap: 0.75rem;
       margin-left: 1rem;
-      
+
       .menu-item {
         padding: 0.5rem 0.75rem;
         font-size: 0.9rem;
@@ -144,10 +146,10 @@
     .p-toolbar {
       padding: 0.5rem 1rem;
     }
-    
+
     .logo {
       font-size: 1.1rem;
-      
+
       i {
         font-size: 1.3rem;
         margin-right: 0.5rem;

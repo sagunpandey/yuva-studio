@@ -1,0 +1,81 @@
+<section class="page software-engineer">
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Software Engineer</h1>
+      <p class="intro">
+        I build elegant, scalable solutions with a passion for clean code and great user experiences.
+        Specializing in full-stack development, I bring ideas to life through thoughtful design and robust architecture.
+      </p>
+
+      <button pButton
+              type="button"
+              label="View Resume"
+              icon="pi pi-file"
+              class="resume-button"
+              (click)="showResumeDialog()"></button>
+    </div>
+
+    <!-- Social Links - Floating Outside Hero Card -->
+    <app-social-links [links]="socialLinks"></app-social-links>
+
+    <!-- Resume Modal -->
+    <p-dialog [(visible)]="displayResumeDialog"
+              [modal]="true"
+              [closable]="true"
+              [closeOnEscape]="true"
+              [dismissableMask]="true"
+              [header]="'Resume'"
+              [style]="{'width': '90vw', 'max-width': '900px'}"
+              [maximizable]="true"
+              [baseZIndex]="10000">
+      <div class="resume-container">
+        <!-- Download Button at Top -->
+        <div class="resume-download-top">
+          <button pButton
+                  type="button"
+                  label="Download Resume"
+                  icon="pi pi-download"
+                  (click)="downloadResume()"
+                  class="download-btn"></button>
+        </div>
+
+        <!-- Resume content from Markdown -->
+        <div class="resume-content" [innerHTML]="resumeHtml"></div>
+
+        <ng-template pTemplate="footer">
+        </ng-template>
+      </div>
+    </p-dialog>
+
+    <!-- Engineering Blogs Section -->
+    <div class="blogs-section">
+      <h2>Engineering Insights</h2>
+      <p class="section-lead">Thoughts and learnings from my journey as a software engineer</p>
+
+      <div class="blogs-grid">
+        <article class="blog-card" *ngFor="let blog of engineeringBlogs">
+          <h3>{{ blog.title }}</h3>
+          <div class="blog-meta">{{ blog.date }}</div>
+          <p class="blog-summary">{{ blog.summary }}</p>
+          <a href="#" class="read-more">Read more</a>
+        </article>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="projects-section">
+      <h2>Featured Projects</h2>
+      <p class="section-lead">Showcase of projects I've built and contributed to</p>
+
+      <div class="projects-grid">
+        <article class="project-card" *ngFor="let project of engineeringProjects">
+          <h3>{{ project.title }}</h3>
+          <p class="project-description">{{ project.description }}</p>
+          <div class="project-tech">{{ project.tech }}</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+

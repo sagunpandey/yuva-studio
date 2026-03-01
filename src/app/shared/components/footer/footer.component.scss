@@ -2,12 +2,34 @@
   text-align: center;
   margin-top: 3rem;
   padding: 1.5rem 0;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.875rem;
-  border-top: 1px solid #e2e8f0;
-  
+  border-top: none;
+
   p {
     margin: 0 0 0.5rem 0;
+  }
+
+  /* Thin divider with centered dot to mimic reference */
+  .rule {
+    position: relative;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 1rem auto 0.75rem;
+    max-width: 700px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      background: var(--accent-500);
+      border: none;
+    }
   }
 
   .footer-links {
@@ -19,19 +41,19 @@
   }
 
   .footer-link {
-    color: #64748b;
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s ease;
 
     &:hover {
-      color: #4f46e5;
-      text-decoration: underline;
+      color: var(--accent-400);
+      text-decoration: none;
     }
   }
 
   .divider {
     margin: 0 0.5rem;
-    color: #cbd5e1;
+    color: rgba(255, 255, 255, 0.24);
   }
 
   @media (max-width: 480px) {
@@ -39,7 +61,7 @@
       flex-direction: column;
       gap: 0.25rem;
     }
-    
+
     .divider {
       display: none;
     }

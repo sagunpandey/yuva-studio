@@ -1,0 +1,16 @@
+<section class="page blog">
+  <div class="container">
+    <h2>Blog</h2>
+    <p class="lead">Lightweight placeholder. Wire this to Markdown or an external source later.</p>
+
+    <div class="posts">
+      <article class="post" *ngFor="let post of posts">
+        <h3 class="post-title">{{ post.title }}</h3>
+        <div class="meta">{{ post.date }}</div>
+        <p class="summary">{{ post.summary }}</p>
+        <a href="#" class="read-more">Read more</a>
+      </article>
+    </div>
+  </div>
+
+</section>

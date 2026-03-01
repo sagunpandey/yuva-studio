@@ -92,7 +92,7 @@ import { RouterModule } from '@angular/router';
       box-shadow: var(--shadow);
       border: 1px solid var(--border-color);
     }
-    
+
     h1 {
       color: var(--text-primary);
       margin-bottom: 1.5rem;
@@ -101,7 +101,7 @@ import { RouterModule } from '@angular/router';
       border-bottom: 2px solid var(--border-color);
       padding-bottom: 1rem;
     }
-    
+
     h2 {
       color: var(--text-primary);
       margin: 2.5rem 0 1.25rem;
@@ -109,7 +109,7 @@ import { RouterModule } from '@angular/router';
       font-weight: 500;
       position: relative;
       padding-left: 1rem;
-      border-left: 4px solid #60a5fa;
+      border-left: 4px solid var(--accent-500);
     }
 
     p, li {
@@ -159,25 +159,25 @@ import { RouterModule } from '@angular/router';
     }
 
     .home-button {
-      background: #60a5fa;
+      background: var(--accent-500);
       color: #1e293b;
     }
 
     .home-button:hover {
-      background: #3b82f6;
+      background: var(--accent-600);
       color: white;
       text-decoration: none;
     }
 
     a {
-      color: #60a5fa;
+      color: var(--accent-400);
       text-decoration: none;
       transition: color 0.2s ease;
     }
 
     a:hover {
-      color: #93c5fd;
-      text-decoration: underline;
+      color: var(--accent-300);
+      text-decoration: none;
     }
   `]
 })

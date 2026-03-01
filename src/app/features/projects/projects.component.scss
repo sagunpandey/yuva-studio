@@ -1,0 +1,16 @@
+.page.projects {
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
+  .lead { color: var(--text-secondary); margin: .25rem 0 1.5rem; }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--section-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+}

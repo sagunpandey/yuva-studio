@@ -1,0 +1,38 @@
+<section class="page board-gamer">
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Board Gamer</h1>
+      <p class="intro">
+        I'm passionate about modern board games - from strategic euros to thematic narratives.
+        I enjoy the artistry of game design, the depth of mechanics, and the joy of playing with friends and family.
+      </p>
+
+      <button pButton
+              type="button"
+              label="My BGG Profile"
+              icon="pi pi-th"
+              class="resume-button"
+              (click)="goToBoardGameGeekProfile()"></button>
+    </div>
+
+    <!-- Social Links - Floating Outside Hero Card -->
+    <app-social-links [links]="socialLinks"></app-social-links>
+
+    <!-- Game Design Insights Section -->
+    <div class="insights-section">
+      <h2>Game Design Insights</h2>
+      <p class="section-lead">Thoughts on board game design, mechanics, and what makes games great</p>
+
+      <div class="insights-grid">
+        <article class="insight-card" *ngFor="let insight of gameInsights">
+          <h3>{{ insight.title }}</h3>
+          <div class="insight-date">{{ insight.date }}</div>
+          <p class="insight-summary">{{ insight.summary }}</p>
+          <a href="#" class="read-more">Read more</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+

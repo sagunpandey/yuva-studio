@@ -9,11 +9,10 @@ import { ConfigService } from '../../../core/services/config.service';
   imports: [CommonModule, RouterModule],
   template: `
     <footer class="footer">
-      <p>© {{ currentYear }} Sagun Pandey. All rights reserved.</p>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="copyright">© {{ currentYear }} Sagun Pandey. ALL RIGHTS RESERVED.</p>
       <div class="footer-links">
         <a routerLink="/privacy-policy" class="footer-link">Privacy Policy</a>
-        <span class="divider">•</span>
-        <a href="mailto:sag.pan@gmail.com" class="footer-link">Contact</a>
       </div>
     </footer>
   `,

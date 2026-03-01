@@ -5,22 +5,25 @@
       <span class="logo-text">Sagun Pandey</span>
     </a>
   </div>
-  
+
   <!-- Desktop Menu -->
   <div class="desktop-menu" *ngIf="!isMobile">
-    <a *ngFor="let item of menuItems" 
-       [routerLink]="item.routerLink" 
+    <a *ngFor="let item of menuItems"
+       [routerLink]="item.routerLink"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }"
+       [attr.aria-current]="item.routerLink === '/' ? 'page' : null"
        pRipple
        class="menu-item">
       <i [class]="item.icon + ' mr-2'"></i>
       <span class="menu-label">{{ item.label }}</span>
     </a>
   </div>
-  
+
   <!-- Mobile Menu Toggle -->
-  <button *ngIf="isMobile" 
-          pButton 
-          icon="pi pi-bars" 
+  <button *ngIf="isMobile"
+          pButton
+          icon="pi pi-bars"
           class="p-button-text p-button-rounded p-button-lg"
           (click)="toggleMenu()"
           aria-label="Menu">
@@ -29,8 +32,10 @@
 
 <!-- Mobile Menu Dropdown -->
 <div *ngIf="isMobile && menuVisible" class="mobile-menu">
-  <a *ngFor="let item of menuItems" 
-     [routerLink]="item.routerLink" 
+  <a *ngFor="let item of menuItems"
+     [routerLink]="item.routerLink"
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{ exact: true }"
      (click)="menuVisible = false"
      pRipple
      class="mobile-menu-item">

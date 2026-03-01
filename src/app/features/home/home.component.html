@@ -1,0 +1,86 @@
+<section class="home" (mousemove)="onMouseMove($event)">
+  <!-- Scene-wide subtle backdrop -->
+  <div class="scene-backdrop" aria-hidden="true"></div>
+
+  <!-- Split Fiction Panels -->
+  <nav class="split" aria-label="Choose a path to explore my sides">
+    <a class="panel engineer"
+       routerLink="/software-engineer"
+       tabindex="0"
+       aria-label="Software Engineer — go to Software Engineer page">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-code"></i>
+        <h2>Programmer</h2>
+        <p>Code. Craft. Ship.</p>
+      </div>
+    </a>
+
+    <a class="panel photographer"
+       [routerLink]="['/links']"
+       [queryParams]="{ category: 'photography' }"
+       tabindex="0"
+       aria-label="Photographer — curated photography links">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-camera"></i>
+        <h2>Photographer</h2>
+        <p>Street & Portraits.</p>
+      </div>
+    </a>
+
+    <a class="panel boardgamer"
+       [routerLink]="['/board-gamer']"
+       tabindex="0"
+       aria-label="BoardGamer — go to Board Gamer page">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-bullseye"></i>
+        <h2>BoardGamer</h2>
+        <p>Think. Cooperate. Win.</p>
+      </div>
+    </a>
+
+    <a class="panel music"
+       routerLink="/music"
+       tabindex="0"
+       aria-label="Music — go to Music page">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-wave-pulse"></i>
+        <h2>Music</h2>
+        <p>Rhythms & Melodies.</p>
+      </div>
+    </a>
+
+    <a class="panel travel"
+       [routerLink]="['/links']"
+       [queryParams]="{ category: 'travel' }"
+       tabindex="0"
+       aria-label="Travel — travel links">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-compass"></i>
+        <h2>Travel</h2>
+        <p>Roads. Skies. Stories.</p>
+      </div>
+    </a>
+
+    <div class="panel life"
+         tabindex="0">
+      <span class="overlay"></span>
+      <span class="glow"></span>
+      <div class="content">
+        <i class="pi pi-heart"></i>
+        <h2>Life</h2>
+        <p>Curiosity & Balance.</p>
+      </div>
+    </div>
+  </nav>
+</section>
+

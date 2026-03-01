@@ -12,10 +12,10 @@ import { ConfigService } from '../../../core/services/config.service';
   selector: 'app-header-nav',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterModule, 
-    ButtonModule, 
-    ToolbarModule, 
+    CommonModule,
+    RouterModule,
+    ButtonModule,
+    ToolbarModule,
     MenuModule,
     RippleModule
   ],
@@ -27,8 +27,9 @@ export class HeaderNavComponent {
   isMobile = false;
   menuVisible = false;
   gravatarUrl = this.config.gravatarUrl;
-  
+
   menuItems: MenuItem[] = [
+    { label: 'Home', icon: 'pi pi-home', routerLink: '/home', styleClass: 'menu-item' },
     { label: 'Links', icon: 'pi pi-share-alt', routerLink: '/links', styleClass: 'menu-item' }
   ];
 

@@ -1,0 +1,12 @@
+<div class="social-links">
+  <a *ngFor="let link of links"
+     [href]="link.url.startsWith('/') ? null : link.url"
+     [routerLink]="link.url.startsWith('/') ? link.url : null"
+     [target]="link.url.startsWith('/') ? undefined : '_blank'"
+     [attr.rel]="link.url.startsWith('/') ? null : 'noopener noreferrer'"
+     [attr.aria-label]="link.name"
+     class="social-icon">
+    <i [class]="link.icon"></i>
+  </a>
+</div>
+
