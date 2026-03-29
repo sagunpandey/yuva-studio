@@ -19,12 +19,12 @@ export class MusicComponent {
     {
       name: 'SoundCloud',
       icon: 'pi pi-music',
-      url: 'https://soundcloud.com/your-username'
+      url: this.config.socialLinks.music.soundcloud
     },
     {
       name: 'YouTube',
       icon: 'pi pi-youtube',
-      url: 'https://youtube.com/@your-channel'
+      url: this.config.socialLinks.personal.youtube
     },
     {
       name: 'Links',
@@ -60,4 +60,3 @@ export class MusicComponent {
     }
   ];
 }
-

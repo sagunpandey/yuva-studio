@@ -1,12 +1,26 @@
 <div class="social-links">
-  <a *ngFor="let link of links"
-     [href]="link.url.startsWith('/') ? null : link.url"
-     [routerLink]="link.url.startsWith('/') ? link.url : null"
-     [queryParams]="link.url.startsWith('/') ? (link.queryParams ?? null) : null"
-     [target]="link.url.startsWith('/') ? undefined : '_blank'"
-     [attr.rel]="link.url.startsWith('/') ? null : 'noopener noreferrer'"
-     [attr.aria-label]="link.name"
-     class="social-icon">
-    <i [class]="link.icon"></i>
-  </a>
+  <ng-container *ngFor="let link of links">
+    <div class="social-link-item">
+      <a *ngIf="!link.url.startsWith('/')"
+         [href]="link.url"
+         target="_blank"
+         rel="noopener noreferrer"
+         [attr.aria-label]="link.name"
+         [title]="link.name"
+         class="social-icon">
+        <i [class]="link.icon"></i>
+      </a>
+
+      <a *ngIf="link.url.startsWith('/')"
+         [routerLink]="link.url"
+         [queryParams]="link.queryParams ?? null"
+         [attr.aria-label]="link.name"
+         [title]="link.name"
+         class="social-icon">
+        <i [class]="link.icon"></i>
+      </a>
+
+      <span *ngIf="isDuplicateIcon(link.icon)" class="social-label">{{ link.name }}</span>
+    </div>
+  </ng-container>
 </div>

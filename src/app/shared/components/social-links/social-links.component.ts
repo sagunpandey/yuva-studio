@@ -22,6 +22,10 @@ export class SocialLinksComponent {
       url: 'https://github.com/your-username'
     }
   ];
+
+  isDuplicateIcon(icon: string): boolean {
+    return this.links.filter((link) => link.icon === icon).length > 1;
+  }
 }
 
 export interface SocialLink {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { marked } from 'marked';
@@ -10,7 +10,8 @@ import { ConfigService } from '../../core/services/config.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrls: ['./blog.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BlogComponent implements OnInit {
   private blogService = inject(BlogService);

@@ -16,9 +16,14 @@ export class PhotographerComponent {
 
   socialLinks: SocialLink[] = [
     {
-      name: 'Instagram',
+      name: 'Street Instagram',
       icon: 'pi pi-instagram',
-      url: 'https://instagram.com/your-handle'
+      url: this.config.socialLinks.photography.street.instagram
+    },
+    {
+      name: 'Portrait Instagram',
+      icon: 'pi pi-instagram',
+      url: this.config.socialLinks.photography.portrait.instagram
     },
     {
       name: 'Links',

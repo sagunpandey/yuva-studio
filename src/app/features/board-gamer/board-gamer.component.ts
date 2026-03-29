@@ -26,17 +26,17 @@ export class BoardGamerComponent implements OnInit {
     {
       name: 'Instagram',
       icon: 'pi pi-instagram',
-      url: 'https://instagram.com/your-handle'
+      url: this.config.socialLinks.boardGaming.instagram
     },
     {
       name: 'TikTok',
       icon: 'pi pi-video',
-      url: 'https://tiktok.com/@your-handle'
+      url: this.config.socialLinks.boardGaming.tiktok
     },
     {
       name: 'YouTube',
       icon: 'pi pi-youtube',
-      url: 'https://youtube.com/@your-channel'
+      url: this.config.socialLinks.boardGaming.youtube
     },
     {
       name: 'Links',
@@ -61,7 +61,6 @@ export class BoardGamerComponent implements OnInit {
   }
 
   goToBoardGameGeekProfile() {
-    window.open('https://boardgamegeek.com/user/your-username', '_blank');
+    window.open(this.config.socialLinks.boardGaming.bgg, '_blank');
   }
 }
-

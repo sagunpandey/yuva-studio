@@ -5,8 +5,16 @@
   margin-bottom: 4rem;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+}
+
+.social-link-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 96px;
 }
 
 .social-icon {
@@ -32,6 +40,16 @@
   font-size: 2.5rem;
 }
 
+.social-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1;
+  max-width: 90px;
+  text-align: center;
+  min-height: 1.8em;
+  display: block;
+}
+
 @media (max-width: 767px) {
   .social-links {
     gap: 0.75rem;
@@ -45,19 +63,17 @@
     font-size: 2rem;
   }
 
-
   .social-icon i {
     font-size: 2rem;
   }
+
+  .social-label {
+    max-width: 80px;
+    font-size: 0.68rem;
+    min-height: 1.8em;
+  }
+
+  .social-link-item {
+    width: 84px;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-

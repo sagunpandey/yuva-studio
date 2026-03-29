@@ -30,23 +30,25 @@ export class SoftwareEngineerComponent implements OnInit {
   engineeringBlogs: BlogPost[] = [];
   blogsLoading = true;
 
-  socialLinks: SocialLink[] = [
-    {
-      name: 'LinkedIn',
-      icon: 'pi pi-linkedin',
-      url: 'https://linkedin.com/in/your-profile'
-    },
-    {
-      name: 'GitHub',
-      icon: 'pi pi-github',
-      url: 'https://github.com/your-username'
-    },
-    {
-      name: 'Links',
-      icon: 'pi pi-share-alt',
-      url: '/links'
-    }
-  ];
+  get socialLinks(): SocialLink[] {
+    return [
+      {
+        name: 'LinkedIn',
+        icon: 'pi pi-linkedin',
+        url: this.config.socialLinks.programming.linkedin
+      },
+      {
+        name: 'GitHub',
+        icon: 'pi pi-github',
+        url: this.config.socialLinks.programming.github
+      },
+      {
+        name: 'Links',
+        icon: 'pi pi-share-alt',
+        url: '/links'
+      }
+    ];
+  }
 
 
   engineeringProjects: { title: string; description: string; tech: string }[] = [];
@@ -250,4 +252,3 @@ export class SoftwareEngineerComponent implements OnInit {
     });
   }
 }
-
