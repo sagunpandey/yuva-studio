@@ -2,9 +2,9 @@
   {
     "slug": "building-scalable-architectures",
     "file": "building-scalable-architectures.md",
+    "category": "programmer",
     "title": "Building Scalable Architectures",
     "date": "2026-01-15",
-    "category": "software-engineering",
     "excerpt": "Lessons learned from designing systems that grow with your business. Exploring microservices, event-driven architectures, and cloud-native solutions.",
     "author": "Sagun Pandey",
     "tags": [
@@ -17,9 +17,9 @@
   {
     "slug": "the-art-of-clean-code",
     "file": "the-art-of-clean-code.md",
+    "category": "programmer",
     "title": "The Art of Clean Code",
     "date": "2026-01-10",
-    "category": "software-engineering",
     "excerpt": "Why code readability matters and practical tips for writing code that your future self will thank you for. SOLID principles, design patterns, and more.",
     "author": "Sagun Pandey",
     "tags": [
@@ -32,9 +32,9 @@
   {
     "slug": "typescript-best-practices",
     "file": "typescript-best-practices.md",
+    "category": "programmer",
     "title": "TypeScript Best Practices",
     "date": "2025-12-20",
-    "category": "software-engineering",
     "excerpt": "Mastering TypeScript to catch bugs early and write safer code. Advanced types, generics, and how to leverage the type system effectively.",
     "author": "Sagun Pandey",
     "tags": [

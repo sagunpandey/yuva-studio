@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ConfigService } from '../../core/services/config.service';
@@ -8,21 +9,26 @@ import { SocialLink } from '../../shared/components/social-links/social-links.co
 import { HttpClient } from '@angular/common/http';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { BlogPost, BlogService } from '../../core/services/blog.service';
 
 @Component({
   selector: 'app-software-engineer',
   standalone: true,
-  imports: [CommonModule, ButtonModule, DialogModule, SocialLinksComponent],
+  imports: [CommonModule, RouterModule, ButtonModule, DialogModule, SocialLinksComponent],
   templateUrl: './software-engineer.component.html',
   styleUrls: ['./software-engineer.component.scss']
 })
-export class SoftwareEngineerComponent {
+export class SoftwareEngineerComponent implements OnInit {
   protected readonly config = inject(ConfigService);
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
+  private blogService = inject(BlogService);
+  private cdr = inject(ChangeDetectorRef);
 
   displayResumeDialog = false;
   resumeHtml: SafeHtml = '';
+  engineeringBlogs: BlogPost[] = [];
+  blogsLoading = true;
 
   socialLinks: SocialLink[] = [
     {
@@ -42,74 +48,22 @@ export class SoftwareEngineerComponent {
     }
   ];
 
-  engineeringBlogs = [
-    {
-      title: 'Building Scalable Architectures',
-      date: '2026-01-15',
-      summary: 'Lessons learned from designing systems that grow with your business. Exploring microservices, event-driven architectures, and cloud-native solutions.'
-    },
-    {
-      title: 'The Art of Clean Code',
-      date: '2026-01-10',
-      summary: 'Why code readability matters and practical tips for writing code that your future self will thank you for. SOLID principles, design patterns, and more.'
-    },
-    {
-      title: 'TypeScript Best Practices',
-      date: '2025-12-20',
-      summary: 'Mastering TypeScript to catch bugs early and write safer code. Advanced types, generics, and how to leverage the type system effectively.'
-    },
-    {
-      title: 'Performance Optimization Guide',
-      date: '2025-12-10',
-      summary: 'Practical techniques for identifying and fixing performance bottlenecks in web applications. Profiling, caching, and optimization strategies.'
-    },
-    {
-      title: 'Testing Strategies for Reliable Code',
-      date: '2025-11-25',
-      summary: 'Unit testing, integration testing, and end-to-end testing. Building confidence in your code with comprehensive test coverage and best practices.'
-    },
-    {
-      title: 'DevOps Essentials for Developers',
-      date: '2025-11-15',
-      summary: 'Understanding CI/CD pipelines, Docker containerization, and cloud deployment. Making your development and deployment process smooth and efficient.'
-    }
-  ];
 
-  engineeringProjects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'Full-stack e-commerce solution built with Angular and Node.js. Features include product catalog, shopping cart, payment integration, and admin dashboard.',
-      tech: 'Angular, Node.js, MongoDB, Stripe'
-    },
-    {
-      title: 'Real-time Collaboration Tool',
-      description: 'Web app enabling teams to collaborate in real-time. Includes live document editing, comments, and presence indicators using WebSockets.',
-      tech: 'React, WebSockets, Firebase, Tailwind'
-    },
-    {
-      title: 'Data Visualization Dashboard',
-      description: 'Interactive dashboard for analyzing and visualizing complex datasets. Built with responsive design and advanced charting capabilities.',
-      tech: 'TypeScript, D3.js, PostgreSQL, Express'
-    },
-    {
-      title: 'Mobile App Framework',
-      description: 'Cross-platform mobile framework for rapid app development. Streamlines common patterns and provides reusable components.',
-      tech: 'React Native, Redux, TypeScript'
-    },
-    {
-      title: 'API Gateway Service',
-      description: 'Microservices API gateway handling authentication, rate limiting, and request routing. Built for high availability and scalability.',
-      tech: 'Node.js, Express, Redis, Docker'
-    },
-    {
-      title: 'Machine Learning Pipeline',
-      description: 'End-to-end ML pipeline for data processing and model training. Includes data validation, feature engineering, and automated retraining.',
-      tech: 'Python, TensorFlow, Apache Spark'
-    }
-  ];
+  engineeringProjects: { title: string; description: string; tech: string }[] = [];
 
   ngOnInit() {
     this.loadResume();
+    this.blogService.getPostsByCategory('programmer').subscribe({
+      next: (posts) => {
+        this.engineeringBlogs = posts.slice(0, 6);
+        this.blogsLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.blogsLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   loadResume() {

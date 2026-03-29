@@ -24,13 +24,30 @@
       <h2>Game Design Insights</h2>
       <p class="section-lead">Thoughts on board game design, mechanics, and what makes games great</p>
 
-      <div class="insights-grid">
+      <div *ngIf="insightsLoading" class="section-loading">
+        <i class="pi pi-spin pi-spinner"></i>
+        <span>Loading posts...</span>
+      </div>
+
+      <div *ngIf="!insightsLoading && gameInsights.length === 0" class="section-empty">
+        <i class="pi pi-pencil section-empty-icon"></i>
+        <p class="section-empty-title">Something's brewing...</p>
+        <p class="section-empty-lead">I'm busy writing game design thoughts for you. Stay tuned!</p>
+      </div>
+
+      <div *ngIf="!insightsLoading && gameInsights.length > 0" class="insights-grid">
         <article class="insight-card" *ngFor="let insight of gameInsights">
           <h3>{{ insight.title }}</h3>
           <div class="insight-date">{{ insight.date }}</div>
-          <p class="insight-summary">{{ insight.summary }}</p>
-          <a href="#" class="read-more">Read more</a>
+          <p class="insight-summary">{{ insight.excerpt }}</p>
+          <a [routerLink]="['/blog', insight.slug]" class="read-more">Read more →</a>
         </article>
+      </div>
+
+      <div class="insights-more" *ngIf="!insightsLoading && gameInsights.length > 0">
+        <a [routerLink]="['/blog']" [queryParams]="{ category: 'board-gamer' }" class="view-all-link">
+          View all game design posts →
+        </a>
       </div>
     </div>
   </div>

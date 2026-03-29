@@ -1,0 +1,115 @@
+[
+  {
+    "slug": "the-beauty-of-asymmetric-game-design",
+    "file": "the-beauty-of-asymmetric-game-design.md",
+    "category": "board-gamer",
+    "title": "The Beauty of Asymmetric Game Design",
+    "date": "2026-01-15",
+    "excerpt": "Exploring games where players have different abilities and goals. How asymmetry creates engaging and replayable experiences.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "game-design",
+      "asymmetry",
+      "mechanics"
+    ]
+  },
+  {
+    "slug": "engine-building-mechanics-explained",
+    "file": "engine-building-mechanics-explained.md",
+    "category": "board-gamer",
+    "title": "Engine Building Mechanics Explained",
+    "date": "2026-01-10",
+    "excerpt": "Understanding engine building through the lens of successful games. How to design systems that grow in complexity and power.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "game-design",
+      "engine-building",
+      "mechanics"
+    ]
+  },
+  {
+    "slug": "the-art-of-cooperative-storytelling",
+    "file": "the-art-of-cooperative-storytelling.md",
+    "category": "board-gamer",
+    "title": "The Art of Cooperative Storytelling",
+    "date": "2025-12-20",
+    "excerpt": "How modern board games weave narrative and mechanics together. Legacy games and persistent storytelling in tabletop design.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "cooperative",
+      "storytelling",
+      "legacy",
+      "narrative"
+    ]
+  },
+  {
+    "slug": "solo-gaming-playing-alone-together",
+    "file": "solo-gaming-playing-alone-together.md",
+    "category": "board-gamer",
+    "title": "Solo Gaming: Playing Alone Together",
+    "date": "2025-12-10",
+    "excerpt": "The rise of solo modes in board games and how designers create engaging single-player experiences that feel complete on their own.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "solo",
+      "game-design",
+      "mechanics"
+    ]
+  },
+  {
+    "slug": "theme-vs-mechanics-finding-the-balance",
+    "file": "theme-vs-mechanics-finding-the-balance.md",
+    "category": "board-gamer",
+    "title": "Theme vs Mechanics: Finding the Balance",
+    "date": "2025-11-25",
+    "excerpt": "When theme serves mechanics and vice versa. Great games where story and systems work in perfect harmony — and what happens when they don't.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "game-design",
+      "theme",
+      "mechanics"
+    ]
+  },
+  {
+    "slug": "gateway-games-that-changed-everything",
+    "file": "gateway-games-that-changed-everything.md",
+    "category": "board-gamer",
+    "title": "Gateway Games That Changed Everything",
+    "date": "2025-11-15",
+    "excerpt": "The games that introduced millions to modern board gaming and what makes a game accessible yet deeply engaging for newcomers and veterans alike.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "gateway-games",
+      "beginner",
+      "recommendations"
+    ]
+  },
+  {
+    "slug": "the-psychology-of-player-elimination",
+    "file": "the-psychology-of-player-elimination.md",
+    "category": "board-gamer",
+    "title": "The Psychology of Player Elimination",
+    "date": "2025-10-28",
+    "excerpt": "Why player elimination feels bad, how modern designers avoid it, and the rare cases where it actually works beautifully.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "game-design",
+      "player-experience",
+      "psychology"
+    ]
+  },
+  {
+    "slug": "deck-building-the-game-within-the-game",
+    "file": "deck-building-the-game-within-the-game.md",
+    "category": "board-gamer",
+    "title": "Deck Building — The Game Within the Game",
+    "date": "2025-10-10",
+    "excerpt": "How deck building mechanics create a meta-game of construction and optimization that sits elegantly inside the main game loop.",
+    "author": "Sagun Pandey",
+    "tags": [
+      "deck-building",
+      "mechanics",
+      "strategy"
+    ]
+  }
+]

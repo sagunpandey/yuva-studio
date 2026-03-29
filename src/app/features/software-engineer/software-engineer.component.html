@@ -53,13 +53,30 @@
       <h2>Engineering Insights</h2>
       <p class="section-lead">Thoughts and learnings from my journey as a software engineer</p>
 
-      <div class="blogs-grid">
+      <div *ngIf="blogsLoading" class="section-loading">
+        <i class="pi pi-spin pi-spinner"></i>
+        <span>Loading posts...</span>
+      </div>
+
+      <div *ngIf="!blogsLoading && engineeringBlogs.length === 0" class="section-empty">
+        <i class="pi pi-pencil section-empty-icon"></i>
+        <p class="section-empty-title">Something's brewing...</p>
+        <p class="section-empty-lead">I'm busy writing engineering insights for you. Stay tuned!</p>
+      </div>
+
+      <div *ngIf="!blogsLoading && engineeringBlogs.length > 0" class="blogs-grid">
         <article class="blog-card" *ngFor="let blog of engineeringBlogs">
           <h3>{{ blog.title }}</h3>
           <div class="blog-meta">{{ blog.date }}</div>
-          <p class="blog-summary">{{ blog.summary }}</p>
-          <a href="#" class="read-more">Read more</a>
+          <p class="blog-summary">{{ blog.excerpt }}</p>
+          <a [routerLink]="['/blog', blog.slug]" class="read-more">Read more →</a>
         </article>
+      </div>
+
+      <div class="blogs-more" *ngIf="!blogsLoading && engineeringBlogs.length > 0">
+        <a [routerLink]="['/blog']" [queryParams]="{ category: 'programmer' }" class="view-all-link">
+          View all engineering posts →
+        </a>
       </div>
     </div>
 
@@ -68,7 +85,13 @@
       <h2>Featured Projects</h2>
       <p class="section-lead">Showcase of projects I've built and contributed to</p>
 
-      <div class="projects-grid">
+      <div *ngIf="engineeringProjects.length === 0" class="section-empty">
+        <i class="pi pi-box section-empty-icon"></i>
+        <p class="section-empty-title">Projects coming soon</p>
+        <p class="section-empty-lead">I'm putting the finishing touches on my project showcase. Check back soon!</p>
+      </div>
+
+      <div *ngIf="engineeringProjects.length > 0" class="projects-grid">
         <article class="project-card" *ngFor="let project of engineeringProjects">
           <h3>{{ project.title }}</h3>
           <p class="project-description">{{ project.description }}</p>

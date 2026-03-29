@@ -2,8 +2,8 @@
   <div class="container">
     <!-- Blog List View -->
     <div *ngIf="!isDetailView" class="blog-list">
-      <h1>Engineering Insights</h1>
-      <p class="lead">Thoughts and learnings from my journey as a software engineer</p>
+      <h1>{{ pageTitle }}</h1>
+      <p class="lead">{{ pageLead }}</p>
 
       <div class="filters" *ngIf="!loading && blogPosts.length > 0">
         <input

@@ -1,0 +1,118 @@
+.page.photographer {
+  background: transparent;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Hero */
+.hero {
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--section-border);
+  border-radius: 8px;
+  min-height: 200px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 800px;
+}
+
+/* Gallery section */
+.gallery-section {
+  margin-top: 4rem;
+}
+
+.gallery-section h2 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.section-lead {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0 2.5rem 0;
+}
+
+/* Coming soon */
+.coming-soon {
+  border: 1px dashed var(--section-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.coming-soon-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+}
+
+.aperture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--section-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+  background: rgba(255, 255, 255, 0.03);
+
+  .pi-camera {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+}
+
+.coming-soon-inner h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.coming-soon-inner p {
+  font-size: 0.97rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 1.75rem 0;
+}
+
+.coming-soon-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+
+  .tag {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--accent-400);
+    border: 1px solid var(--section-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+}
+

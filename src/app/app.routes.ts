@@ -6,7 +6,8 @@ import { ConfigService } from './core/services/config.service';
 import { BlogComponent } from './features/blog/blog.component';
 import { SoftwareEngineerComponent } from './features/software-engineer/software-engineer.component';
 import { BoardGamerComponent } from './features/board-gamer/board-gamer.component';
-import {MusicComponent} from './features/music/music.component';
+import { MusicComponent } from './features/music/music.component';
+import { PhotographerComponent } from './features/photographer/photographer.component';
 const config = new ConfigService();
 
 export const routes: Routes = [
@@ -34,6 +35,11 @@ export const routes: Routes = [
     path: 'music',
     component: MusicComponent,
     title: 'Music | ' + config.appName
+  },
+  {
+    path: 'photographer',
+    component: PhotographerComponent,
+    title: 'Photographer | ' + config.appName
   },
   {
     path: 'blog',

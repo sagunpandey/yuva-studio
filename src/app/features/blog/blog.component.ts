@@ -30,6 +30,23 @@ export class BlogComponent implements OnInit {
   tags: string[] = [];
   private syncingFromQuery = false;
 
+  private readonly categoryMeta: Record<string, { title: string; lead: string }> = {
+    programmer: { title: 'Engineering Insights', lead: 'Thoughts and learnings from my journey as a software engineer' },
+    'board-gamer': { title: 'Game Design Insights', lead: 'Thoughts on board game design, mechanics, and what makes games great' },
+    photographer: { title: 'Photography Journal', lead: 'Perspectives behind the lens — streets, portraits, and moments' },
+    singer: { title: 'Music Musings', lead: 'Notes on rhythm, melody, and the joy of making music' },
+    life: { title: 'Life', lead: 'Curiosity, balance, and everything in between' },
+    all: { title: 'All Posts', lead: 'Everything I have written across all categories' }
+  };
+
+  get pageTitle(): string {
+    return this.categoryMeta[this.categoryFilter]?.title ?? 'Blog';
+  }
+
+  get pageLead(): string {
+    return this.categoryMeta[this.categoryFilter]?.lead ?? '';
+  }
+
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((queryParams) => {
       this.syncingFromQuery = true;
