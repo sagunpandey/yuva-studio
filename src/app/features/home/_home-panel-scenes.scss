@@ -688,6 +688,25 @@
   }
 }
 
+@media (max-width: 767px) {
+  .panel .panel-scene {
+    inset: auto 0.75rem 1.35rem 0.75rem;
+    height: 50%;
+    min-height: 122px;
+    max-height: 168px;
+    opacity: 0.78;
+    transform: scale(0.9);
+    transform-origin: 50% 100%;
+    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.15));
+  }
+
+  .panel .panel-scene .scene-floor {
+    left: 14%;
+    right: 14%;
+    bottom: 4%;
+  }
+}
+
 @media (max-width: 1023px) {
   .panel .panel-scene {
     filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.16));
