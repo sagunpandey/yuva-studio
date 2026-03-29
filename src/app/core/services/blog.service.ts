@@ -89,6 +89,7 @@ export class BlogService {
   private getBlogIndex(): Observable<BlogIndexEntry[]> {
     if (!this.blogIndex$) {
       this.blogIndex$ = this.http.get<BlogIndexFileEntry[]>('/assets/blogs/index.json').pipe(
+        timeout(5000),
         map((entries) => entries.map((entry) => this.normalizeIndexEntry(entry)).filter(Boolean) as BlogIndexEntry[]),
         map((entries) =>
           entries.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

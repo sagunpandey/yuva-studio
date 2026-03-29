@@ -5,20 +5,59 @@
       <h1>Engineering Insights</h1>
       <p class="lead">Thoughts and learnings from my journey as a software engineer</p>
 
+      <div class="filters" *ngIf="!loading && blogPosts.length > 0">
+        <input
+          class="search-input"
+          type="search"
+          placeholder="Search title, excerpt, category, tags"
+          [value]="searchTerm"
+          (input)="setSearchTerm($any($event.target).value)"
+        />
+
+        <select class="filter-select" [value]="categoryFilter" (change)="setCategoryFilter($any($event.target).value)">
+          <option value="all">All categories</option>
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+
+        <select class="filter-select" [value]="tagFilter" (change)="setTagFilter($any($event.target).value)">
+          <option value="all">All tags</option>
+          <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+        </select>
+
+        <button type="button" class="clear-button" (click)="clearFilters()">Clear</button>
+      </div>
+
       <div *ngIf="loading" class="loading">
         <p>Loading blog posts...</p>
       </div>
 
-      <div *ngIf="!loading && blogPosts.length === 0" class="no-posts">
-        <p>No blog posts yet. Check back soon!</p>
+      <div *ngIf="!loading && filteredBlogPosts.length === 0" class="no-posts">
+        <p>No blog posts match your current search/filter.</p>
       </div>
 
-      <div *ngIf="!loading && blogPosts.length > 0" class="posts">
-        <article class="post" *ngFor="let post of blogPosts">
+      <div *ngIf="!loading && filteredBlogPosts.length > 0" class="posts">
+        <article class="post" *ngFor="let post of filteredBlogPosts">
           <h3 class="post-title">{{ post.title }}</h3>
-          <div class="meta">{{ post.date }} • {{ post.category }}</div>
+          <div class="meta">
+            <span class="meta-item date">{{ post.date }}</span>
+            <span class="meta-divider" aria-hidden="true">•</span>
+            <button type="button" class="meta-link" (click)="applyCategoryFilter(post.category)">
+              {{ post.category }}
+            </button>
+          </div>
           <p class="summary">{{ post.excerpt }}</p>
-          <a [routerLink]="['/blog', post.slug]" class="read-more">Read more →</a>
+          <div class="post-tags" *ngIf="post.tags && post.tags.length > 0">
+            <button type="button" class="tag tag-button" *ngFor="let tag of post.tags" (click)="applyTagFilter(tag)">
+              {{ tag }}
+            </button>
+          </div>
+          <a
+            [routerLink]="['/blog', post.slug]"
+            [queryParams]="buildQueryParams()"
+            class="read-more"
+          >
+            Read more →
+          </a>
         </article>
       </div>
     </div>
@@ -30,13 +69,21 @@
       <article class="post-detail">
         <h1 class="post-title">{{ selectedPost.title }}</h1>
         <div class="meta">
-          <span class="date">{{ selectedPost.date }}</span>
-          <span class="category">{{ selectedPost.category }}</span>
-          <span *ngIf="selectedPost.author" class="author">By {{ selectedPost.author }}</span>
+          <span class="meta-item date">{{ selectedPost.date }}</span>
+          <span class="meta-divider" aria-hidden="true">•</span>
+          <button type="button" class="meta-link" (click)="applyCategoryFilter(selectedPost.category)">
+            {{ selectedPost.category }}
+          </button>
+          <span *ngIf="selectedPost.author" class="meta-item author">
+            <span class="meta-divider" aria-hidden="true">•</span>
+            By {{ selectedPost.author }}
+          </span>
         </div>
 
         <div *ngIf="selectedPost.tags && selectedPost.tags.length > 0" class="tags">
-          <span *ngFor="let tag of selectedPost.tags" class="tag">{{ tag }}</span>
+          <button type="button" *ngFor="let tag of selectedPost.tags" class="tag tag-button" (click)="applyTagFilter(tag)">
+            {{ tag }}
+          </button>
         </div>
 
         <div class="content" [innerHTML]="parseMarkdown(selectedPost.content)"></div>
