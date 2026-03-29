@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -22,8 +22,9 @@ import { ConfigService } from '../../../core/services/config.service';
   templateUrl: './header-nav.component.html',
   styleUrls: ['./header-nav.component.scss']
 })
-export class HeaderNavComponent {
+export class HeaderNavComponent implements OnInit {
   private config = inject(ConfigService);
+  private hostElement = inject(ElementRef<HTMLElement>);
   isMobile = false;
   menuVisible = false;
   gravatarUrl = this.config.gravatarUrl;
@@ -41,6 +42,18 @@ export class HeaderNavComponent {
   @HostListener('window:resize')
   onResize() {
     this.checkScreenSize();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.isMobile || !this.menuVisible) {
+      return;
+    }
+
+    const target = event.target;
+    if (target instanceof Node && !this.hostElement.nativeElement.contains(target)) {
+      this.menuVisible = false;
+    }
   }
 
   ngOnInit() {
