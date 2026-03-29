@@ -23,8 +23,8 @@ export class PhotographerComponent {
     {
       name: 'Links',
       icon: 'pi pi-share-alt',
-      url: '/links'
+      url: '/links',
+      queryParams: { category: 'photography' }
     }
   ];
 }
-

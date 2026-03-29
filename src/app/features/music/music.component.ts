@@ -20,6 +20,17 @@ export class MusicComponent {
       name: 'SoundCloud',
       icon: 'pi pi-music',
       url: 'https://soundcloud.com/your-username'
+    },
+    {
+      name: 'YouTube',
+      icon: 'pi pi-youtube',
+      url: 'https://youtube.com/@your-channel'
+    },
+    {
+      name: 'Links',
+      icon: 'pi pi-share-alt',
+      url: '/links',
+      queryParams: { category: 'music' }
     }
   ];
 

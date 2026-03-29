@@ -41,7 +41,8 @@ export class BoardGamerComponent implements OnInit {
     {
       name: 'Links',
       icon: 'pi pi-share-alt',
-      url: '/links'
+      url: '/links',
+      queryParams: { category: 'gaming' }
     }
   ];
 

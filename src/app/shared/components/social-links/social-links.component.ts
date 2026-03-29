@@ -28,5 +28,5 @@ export interface SocialLink {
   name: string;
   icon: string;
   url: string;
+  queryParams?: Record<string, string>;
 }
-
