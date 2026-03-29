@@ -1,0 +1,825 @@
+.panel .panel-scene {
+  position: absolute;
+  inset: 1.5rem 1.25rem auto 1.25rem;
+  height: 54%;
+  min-height: 180px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.92;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+  transform-origin: 50% 100%;
+  transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
+
+  .person,
+  .desk,
+  .laptop,
+  .camera,
+  .camera-flash,
+  .table,
+  .meeple,
+  .die,
+  .mic-stand,
+  .mic-head,
+  .note,
+  .sun,
+  .path,
+  .pulse,
+  .bag,
+  .typing-lines span,
+  .scene-floor,
+  .monitor-glow,
+  .keyboard,
+  .mug,
+  .chair,
+  .photo-card,
+  .camera-ring,
+  .board-grid,
+  .card,
+  .token,
+  .spotlight,
+  .sound-wave,
+  .cloud,
+  .mountain,
+  .orb {
+    position: absolute;
+  }
+
+  .scene-floor {
+    left: 8%;
+    right: 8%;
+    bottom: 7%;
+    height: 18px;
+    border-radius: 999px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 65%, transparent 78%);
+    opacity: 0.75;
+  }
+
+  .person {
+    left: 26%;
+    bottom: 14%;
+    width: 70px;
+    height: 120px;
+
+    .head {
+      position: absolute;
+      top: 0;
+      left: 22px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.82);
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06), 0 0 20px rgba(255, 255, 255, 0.04);
+    }
+
+    .body {
+      position: absolute;
+      top: 24px;
+      left: 33px;
+      width: 2px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 64px;
+      width: 2px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.82);
+      transform-origin: top center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+    }
+
+    &::before {
+      left: 28px;
+      transform: rotate(16deg);
+    }
+
+    &::after {
+      left: 38px;
+      transform: rotate(-16deg);
+    }
+
+    .arm {
+      position: absolute;
+      top: 36px;
+      width: 2px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      transform-origin: top center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+    }
+
+    .arm-left {
+      left: 24px;
+      transform: rotate(48deg);
+    }
+
+    .arm-right {
+      left: 42px;
+      transform: rotate(-42deg);
+    }
+
+    .body {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+    }
+  }
+}
+
+.panel:hover .panel-scene,
+.panel:focus-visible .panel-scene {
+  opacity: 1;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.24));
+}
+
+.programmer-scene {
+  .desk {
+    left: 14%;
+    right: 12%;
+    bottom: 12%;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(167, 139, 250, 0.28), rgba(96, 165, 250, 0.22));
+  }
+
+  .monitor-glow {
+    left: 45%;
+    bottom: 20%;
+    width: 80px;
+    height: 52px;
+    border-radius: 12px;
+    background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.22), rgba(56, 189, 248, 0.07) 58%, transparent 75%);
+    animation: screenGlow 2.6s infinite ease-in-out;
+  }
+
+  .laptop {
+    left: 44%;
+    bottom: 16%;
+    width: 64px;
+    height: 42px;
+    border: 2px solid rgba(255, 255, 255, 0.76);
+    border-radius: 8px 8px 4px 4px;
+    transform: skew(-8deg);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 5px 6px 8px 6px;
+      border-radius: 4px;
+      background:
+        linear-gradient(180deg, rgba(96, 165, 250, 0.34), rgba(37, 99, 235, 0.16)),
+        repeating-linear-gradient(180deg, transparent 0 6px, rgba(255, 255, 255, 0.18) 6px 8px);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -10px;
+      right: -8px;
+      bottom: -8px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      transform: skew(14deg);
+    }
+  }
+
+  .keyboard {
+    left: 44.5%;
+    bottom: 13.5%;
+    width: 68px;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
+  }
+
+  .mug {
+    left: 34%;
+    bottom: 14.5%;
+    width: 14px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.62);
+    border-radius: 0 0 5px 5px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -7px;
+      top: 3px;
+      width: 6px;
+      height: 7px;
+      border: 2px solid rgba(255, 255, 255, 0.48);
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+  }
+
+  .chair {
+    left: 19%;
+    bottom: 13%;
+    width: 26px;
+    height: 44px;
+    border-left: 2px solid rgba(255, 255, 255, 0.22);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.22);
+    border-radius: 4px;
+    opacity: 0.65;
+  }
+
+  .typing-lines {
+    span {
+      width: 14px;
+      height: 2px;
+      background: rgba(96, 165, 250, 0.9);
+      left: 58%;
+      bottom: 34%;
+      animation: typingBlink 1.2s infinite ease-in-out;
+
+      &:nth-child(2) {
+        left: 62%;
+        bottom: 31%;
+        animation-delay: 0.15s;
+      }
+
+      &:nth-child(3) {
+        left: 56%;
+        bottom: 28%;
+        animation-delay: 0.3s;
+      }
+    }
+  }
+
+  .person {
+    left: 27%;
+    animation: idleBob 3.2s infinite ease-in-out;
+
+    .arm-left,
+    .arm-right {
+      animation: typingArms 0.9s infinite ease-in-out;
+    }
+
+    .arm-right {
+      animation-delay: 0.15s;
+    }
+  }
+}
+
+.photographer-scene {
+  .camera {
+    left: 42%;
+    bottom: 39%;
+    width: 44px;
+    height: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.82);
+    border-radius: 8px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: 13px;
+      top: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.82);
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 8px;
+      width: 12px;
+      height: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+    }
+  }
+
+  .camera-flash {
+    left: 54%;
+    bottom: 46%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(250, 204, 21, 0.72);
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
+    animation: shutterFlash 2.8s infinite ease-out;
+  }
+
+  .photo-card {
+    width: 34px;
+    height: 42px;
+    border: 2px solid rgba(255, 255, 255, 0.58);
+    border-radius: 6px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.02)),
+      linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(96, 165, 250, 0.08));
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  }
+
+  .photo-card-one {
+    right: 22%;
+    top: 12%;
+    transform: rotate(8deg);
+  }
+
+  .photo-card-two {
+    right: 10%;
+    top: 18%;
+    transform: rotate(-7deg);
+  }
+
+  .camera-ring {
+    left: 46.5%;
+    bottom: 40.5%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.82);
+    border-radius: 50%;
+    animation: lensFocus 2.2s infinite ease-in-out;
+  }
+
+  .person {
+    left: 26%;
+    bottom: 12%;
+    animation: idleBob 3s infinite ease-in-out;
+
+    .arm-left {
+      transform: rotate(78deg);
+    }
+
+    .arm-right {
+      transform: rotate(-78deg);
+      animation: shutterPress 2.8s infinite ease-in-out;
+    }
+  }
+}
+
+.boardgamer-scene {
+  .table {
+    left: 24%;
+    right: 18%;
+    bottom: 14%;
+    height: 52px;
+    border: 2px solid rgba(255, 255, 255, 0.72);
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.15);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .board-grid {
+    left: 28%;
+    right: 22%;
+    bottom: 18%;
+    height: 44px;
+    border-radius: 12px;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 12px 12px;
+    opacity: 0.7;
+  }
+
+  .card {
+    width: 18px;
+    height: 26px;
+    border: 2px solid rgba(255, 255, 255, 0.62);
+    border-radius: 5px;
+    background: rgba(15, 23, 42, 0.2);
+    bottom: 31%;
+  }
+
+  .card-left {
+    left: 31%;
+    transform: rotate(-12deg);
+    animation: cardTilt 3.4s infinite ease-in-out;
+  }
+
+  .card-right {
+    left: 61%;
+    transform: rotate(12deg);
+    animation: cardTilt 3.4s infinite ease-in-out 0.8s;
+  }
+
+  .token {
+    left: 52%;
+    bottom: 40%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(250, 204, 21, 0.82);
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.08);
+    animation: tokenBlink 2.5s infinite ease-in-out;
+  }
+
+  .meeple,
+  .die {
+    bottom: 26%;
+  }
+
+  .meeple {
+    width: 16px;
+    height: 16px;
+    border-radius: 50% 50% 35% 35%;
+    background: rgba(167, 139, 250, 0.82);
+    animation: meepleHop 2.6s infinite ease-in-out;
+  }
+
+  .meeple-left { left: 38%; }
+
+  .meeple-right {
+    left: 56%;
+    animation-delay: 0.5s;
+    background: rgba(96, 165, 250, 0.82);
+  }
+
+  .die {
+    left: 48%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    transform: rotate(12deg);
+    animation: dieRock 2.4s infinite ease-in-out;
+  }
+
+  .person {
+    left: 14%;
+    bottom: 10%;
+
+    .arm-right {
+      animation: reachForward 2.4s infinite ease-in-out;
+    }
+  }
+}
+
+.music-scene {
+  .spotlight {
+    left: 52%;
+    top: 8%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.12), transparent 72%);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    opacity: 0.75;
+  }
+
+  .mic-stand {
+    left: 56%;
+    bottom: 13%;
+    width: 2px;
+    height: 84px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .mic-head {
+    left: calc(56% - 6px);
+    bottom: 49%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.82);
+    border-radius: 50%;
+    animation: micPulse 2.1s infinite ease-in-out;
+  }
+
+  .sound-wave {
+    right: 14%;
+    bottom: 34%;
+    border: 2px solid rgba(167, 139, 250, 0.42);
+    border-radius: 50%;
+    animation: wavePulse 2.6s infinite ease-out;
+  }
+
+  .sound-wave-one {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sound-wave-two {
+    width: 54px;
+    height: 54px;
+    right: 11%;
+    bottom: 30%;
+    animation-delay: 0.6s;
+  }
+
+  .person {
+    left: 30%;
+    bottom: 12%;
+    animation: idleBob 2.8s infinite ease-in-out;
+
+    .arm-left {
+      animation: singerSway 2.6s infinite ease-in-out;
+    }
+
+    .arm-right {
+      transform: rotate(-18deg);
+    }
+  }
+
+  .note {
+    color: rgba(250, 204, 21, 0.95);
+    font-size: 1.4rem;
+    animation: noteFloat 2.8s infinite ease-in-out;
+  }
+
+  .note-one {
+    left: 64%;
+    bottom: 58%;
+  }
+
+  .note-two {
+    left: 70%;
+    bottom: 48%;
+    animation-delay: 0.8s;
+  }
+}
+
+.travel-scene {
+  .sun {
+    right: 16%;
+    top: 8%;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(250, 204, 21, 0.8);
+    box-shadow: 0 0 0 8px rgba(250, 204, 21, 0.08);
+    animation: sunGlow 3s infinite ease-in-out;
+  }
+
+  .cloud {
+    width: 44px;
+    height: 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+    }
+
+    &::before {
+      width: 16px;
+      height: 16px;
+      left: 6px;
+      top: -6px;
+    }
+
+    &::after {
+      width: 18px;
+      height: 18px;
+      right: 6px;
+      top: -8px;
+    }
+  }
+
+  .cloud-one {
+    left: 16%;
+    top: 20%;
+    animation: driftCloud 7s infinite ease-in-out;
+  }
+
+  .cloud-two {
+    right: 18%;
+    top: 26%;
+    transform: scale(0.86);
+    animation: driftCloud 8s infinite ease-in-out 1s;
+  }
+
+  .mountain {
+    bottom: 12%;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .mountain-back {
+    left: 44%;
+    width: 74px;
+    height: 58px;
+    opacity: 0.45;
+  }
+
+  .mountain-front {
+    left: 58%;
+    width: 98px;
+    height: 74px;
+    opacity: 0.62;
+  }
+
+  .path {
+    left: 16%;
+    right: 20%;
+    bottom: 13%;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.55));
+  }
+
+  .person {
+    left: 28%;
+    bottom: 12%;
+    animation: walkCycle 2.6s infinite ease-in-out;
+
+    .bag {
+      top: 36px;
+      left: 40px;
+      width: 12px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      border-radius: 4px;
+    }
+  }
+}
+
+.life-scene {
+  .pulse {
+    left: 16%;
+    right: 18%;
+    bottom: 32%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(244, 114, 182, 0.65) 20%, rgba(244, 114, 182, 0.92) 50%, transparent 100%);
+    clip-path: polygon(0 50%, 18% 50%, 24% 50%, 30% 0, 36% 100%, 46% 50%, 100% 50%, 100% 100%, 0 100%);
+    animation: pulseWave 2.2s infinite ease-in-out;
+  }
+
+  .orb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(244, 114, 182, 0.72);
+    box-shadow: 0 0 0 6px rgba(244, 114, 182, 0.06);
+    animation: floatOrb 4s infinite ease-in-out;
+  }
+
+  .orb-one {
+    left: 26%;
+    bottom: 46%;
+  }
+
+  .orb-two {
+    right: 22%;
+    bottom: 54%;
+    animation-delay: 1.3s;
+  }
+
+  .person.seated {
+    left: 42%;
+    bottom: 10%;
+    animation: breathe 3.1s infinite ease-in-out;
+
+    &::before,
+    &::after {
+      height: 28px;
+      top: 58px;
+    }
+
+    .arm-left,
+    .arm-right {
+      top: 42px;
+      height: 22px;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .panel .panel-scene {
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.16));
+
+    .photo-card,
+    .cloud,
+    .mountain,
+    .spotlight,
+    .sound-wave,
+    .chair,
+    .mug {
+      opacity: 0.8;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel:hover .panel-scene,
+  .panel:focus-visible .panel-scene {
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+  }
+}
+
+@keyframes typingArms {
+  0%, 100% { transform: rotate(46deg); }
+  50% { transform: rotate(56deg); }
+}
+
+@keyframes typingBlink {
+  0%, 100% { opacity: 0.15; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+@keyframes idleBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes shutterFlash {
+  0%, 72%, 100% { opacity: 0.1; box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.15); }
+  75% { opacity: 1; box-shadow: 0 0 0 14px rgba(250, 204, 21, 0); }
+}
+
+@keyframes meepleHop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+}
+
+@keyframes dieRock {
+  0%, 100% { transform: rotate(12deg); }
+  50% { transform: rotate(-10deg); }
+}
+
+@keyframes reachForward {
+  0%, 100% { transform: rotate(-42deg); }
+  50% { transform: rotate(-18deg); }
+}
+
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.1); }
+  50% { box-shadow: 0 0 0 8px rgba(167, 139, 250, 0); }
+}
+
+@keyframes noteFloat {
+  0% { transform: translateY(0) scale(0.95); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-18px) scale(1.05); opacity: 0; }
+}
+
+@keyframes sunGlow {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(250, 204, 21, 0.08); }
+  50% { box-shadow: 0 0 0 14px rgba(250, 204, 21, 0.03); }
+}
+
+@keyframes walkCycle {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+@keyframes pulseWave {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.98); }
+  50% { opacity: 1; transform: scaleX(1.04); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.02); }
+}
+
+@keyframes screenGlow {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes lensFocus {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes shutterPress {
+  0%, 100% { transform: rotate(-78deg); }
+  18% { transform: rotate(-66deg); }
+  22% { transform: rotate(-80deg); }
+}
+
+@keyframes cardTilt {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+
+@keyframes tokenBlink {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@keyframes wavePulse {
+  0% { opacity: 0.55; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.28); }
+}
+
+@keyframes singerSway {
+  0%, 100% { transform: rotate(48deg); }
+  50% { transform: rotate(34deg); }
+}
+
+@keyframes driftCloud {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-8px) scale(1.08); opacity: 1; }
+}
+

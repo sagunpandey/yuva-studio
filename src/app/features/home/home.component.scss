@@ -1,3 +1,5 @@
+@use './home-panel-scenes';
+
 :host { display: block; }
 
 .home {
@@ -239,4 +241,3 @@
     transform: none !important;
   }
 }
-
