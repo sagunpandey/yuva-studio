@@ -30,6 +30,11 @@ export class HeaderNavComponent {
 
   menuItems: MenuItem[] = [
     { label: 'Home', icon: 'pi pi-home', routerLink: '/home', styleClass: 'menu-item' },
+    { label: 'Blog', icon: 'pi pi-book', routerLink: '/blog', styleClass: 'menu-item' },
+    { label: 'Technology', icon: 'pi pi-code', routerLink: '/software-engineer', styleClass: 'menu-item' },
+    { label: 'Photography', icon: 'pi pi-camera', routerLink: '/photographer', styleClass: 'menu-item' },
+    { label: 'Board Gaming', icon: 'pi pi-th-large', routerLink: '/board-gamer', styleClass: 'menu-item' },
+    { label: 'Music', icon: 'pi pi-headphones', routerLink: '/music', styleClass: 'menu-item' },
     { label: 'Links', icon: 'pi pi-share-alt', routerLink: '/links', styleClass: 'menu-item' }
   ];
 
