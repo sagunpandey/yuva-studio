@@ -41,6 +41,11 @@ export const routes: Routes = [
     title: 'Blog | ' + config.appName
   },
   {
+    path: 'blog/:slug',
+    component: BlogComponent,
+    title: 'Blog | ' + config.appName
+  },
+  {
     path: 'links',
     component: LinkTreeComponent,
     title: 'Links | ' + config.appName

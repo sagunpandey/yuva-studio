@@ -134,9 +134,9 @@ export class LinkTreeComponent implements OnInit {
             iconSvg: BgaIconComponent
           },
           {
-            ...this.createLinkItem('Box King Gaming', 'https://boxkinggaming.com/', 'pi pi-shopping-cart', 'Use code ROLLPASA for 10% off your order!', 'High-quality shelves, board game tables, organizers, and accessories.'),
+            ...this.createLinkItem('Box King Gaming', 'https://boxkinggaming.com/', 'pi pi-shopping-cart', 'Use code SAGUN03 for 10% off your order!', 'High-quality shelves, board game tables, organizers, and accessories.'),
             sponsored: true,
-            couponCode: 'ROLLPASA',
+            couponCode: 'SAGUN03',
             discount: '10% off',
             isHotDeal: false,
           },
